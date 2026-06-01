@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LION 3D - Optimización Tisular Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            -webkit-tap-highlight-color: transparent;
+        }
+        ::-webkit-scrollbar { display: none; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .shadow-glow-acid { box-shadow: 0 0 30px rgba(255, 75, 75, 0.25); }
+        .shadow-glow-alkaline { box-shadow: 0 0 30px rgba(82, 214, 105, 0.25); }
+        .shadow-glow-lion { box-shadow: 0 0 30px rgba(56, 151, 255, 0.25); }
+
+        #cell-3d-canvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex flex-col justify-between max-w-md mx-auto border-x border-gray-900 shadow-2xl relative overflow-x-hidden">
+
+    <header class="p-5 flex justify-between items-center border-b border-gray-900 bg-black/60 backdrop-blur-md sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-[#3897ff] animate-pulse"></div>
+            <h1 class="text-lg font-bold tracking-wider text-white">LION <span class="text-[#3897ff]">3D PRO</span></h1>
+        </div>
+        <span class="text-xs bg-gray-900 border border-gray-800 px-3 py-1 rounded-full text-gray-400 font-semibold tracking-wide">GIRO EXPRESS 7D</span>
+    </header>
+
+    <main class="flex-1 p-5 overflow-y-auto pb-24">
+        
+        <section id="biometria" class="tab-content active space-y-6">
+            <div class="relative w-full h-80 bg-gradient-to-b from-gray-950 to-black rounded-3xl border border-gray-900 overflow-hidden shadow-glow-lion transition-all duration-500" id="canvas-container">
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:14px_24px] z-0"></div>
+                
+                <div class="absolute top-3 left-4 z-20 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full border border-gray-800 text-[9px] text-gray-400 tracking-wide">
+                    <i class="fa-solid fa-microscope text-[#3897ff] mr-1"></i> VISUALIZADOR METABÓLICO EN TIEMPO REAL
+                </div>
+                
+                <div id="cell-3d-canvas"></div>
+                
+                <div class="absolute bottom-3 left-3 right-3 bg-black/80 backdrop-blur-md p-3 rounded-xl border border-gray-800/80 flex justify-between items-center z-20">
+                    <div>
+                        <p class="text-[9px] text-gray-500 uppercase tracking-widest">Entorno Celular</p>
+                        <h3 id="phase-title" class="text-xs font-bold text-[#3897ff]">Estado Óptimo LION</h3>
+                    </div>
+                    <div id="phase-badge" class="px-2 py-0.5 rounded text-[9px] font-bold bg-[#3897ff]/10 text-[#3897ff]">FASE 3</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-gray-950/60 border border-gray-900 p-4 rounded-2xl">
+                    <span class="text-[10px] text-gray-400 block mb-1">pH Histológico</span>
+                    <div class="text-xl font-bold tracking-tight text-[#3897ff]" id="ph-value">7.45</div>
+                    <p class="text-[9px] text-gray-500 mt-0.5" id="ph-status">Ultra-fluidez Homeostática</p>
+                </div>
+                <div class="bg-gray-950/60 border border-gray-900 p-4 rounded-2xl">
+                    <span class="text-[10px] text-gray-400 block mb-1">Saturación de O₂</span>
+                    <div class="text-xl font-bold tracking-tight text-[#3897ff]" id="o2-value">99%</div>
+                    <p class="text-[9px] text-gray-500 mt-0.5" id="o2-status">Eficiencia Energética Máxima</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-950/40 border border-gray-900 p-4 rounded-2xl space-y-2">
+                <input type="range" id="biomarker-slider" min="1" max="3" step="1" value="3" class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-[#3897ff]">
+                <div class="flex justify-between text-[9px] text-gray-500 font-bold px-1">
+                    <span onclick="setSlider(1)" class="cursor-pointer">ACIDOSIS CRÍTICA</span>
+                    <span onclick="setSlider(2)" class="cursor-pointer">REACTIVACIÓN</span>
+                    <span onclick="setSlider(3)" class="cursor-pointer">ESTADO LION</span>
+                </div>
+            </div>
+
+            <div id="state-definition-container" class="p-4 rounded-2xl bg-gray-950/60 border border-gray-900 transition-all duration-300">
+                <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase mb-1">Diagnóstico Clínico Simulado</p>
+                <p id="state-definition-text" class="text-xs text-gray-300 leading-relaxed font-light"></p>
+            </div>
+
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <h4 class="text-xs font-bold tracking-wider text-gray-400 uppercase">7 Acciones Críticas Diarias</h4>
+                    <span id="checklist-progress" class="text-[10px] bg-gray-900 px-2 py-0.5 rounded border border-gray-800 text-[#3897ff]">0/7</span>
+                </div>
+                <div class="space-y-2" id="checklist-container"></div>
+            </div>
+        </section>
+
+        <section id="despensa" class="tab-content space-y-6">
+            <div>
+                <h2 class="text-xl font-bold mb-1">Matriz de Suministros</h2>
+                <p class="text-xs text-gray-500">Mínimo 7 alimentos limpios por categoría y equivalencias terapéuticas.</p>
+            </div>
+            <div class="space-y-4" id="market-groups-container"></div>
+        </section>
+
+        <section id="recetario" class="tab-content space-y-6">
+            <div>
+                <h2 class="text-xl font-bold mb-1">Protocolo Gastronómico</h2>
+                <p class="text-xs text-gray-500">10 recetas de alta absorción diseñadas para el reseteo metabólico.</p>
+            </div>
+            <div class="space-y-2" id="recipes-container"></div>
+        </section>
+
+        <section id="menu-semanal" class="tab-content space-y-6">
+            <div>
+                <h2 class="text-xl font-bold mb-1">Planificador Tisular 7D</h2>
+                <p class="text-xs text-gray-500">Cronograma oficial adaptado fielmente del protocolo gráfico LION.</p>
+            </div>
+            <div class="space-y-3" id="days-container"></div>
+        </section>
+
+    </main>
+
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-black/90 backdrop-blur-lg border-t border-gray-900 p-2 flex justify-around items-center z-50">
+        <button onclick="switchTab('biometria')" class="tab-btn flex flex-col items-center gap-1 p-2 text-[#3897ff]" data-tab="biometria">
+            <i class="fa-solid fa-chart-simple text-base"></i>
+            <span class="text-[9px] font-bold tracking-wider">BIOMETRÍA</span>
+        </button>
+        <button onclick="switchTab('despensa')" class="tab-btn flex flex-col items-center gap-1 p-2 text-gray-500" data-tab="despensa">
+            <i class="fa-solid fa-basket-shopping text-base"></i>
+            <span class="text-[9px] font-bold tracking-wider">DESPENSA</span>
+        </button>
+        <button onclick="switchTab('recetario')" class="tab-btn flex flex-col items-center gap-1 p-2 text-gray-500" data-tab="recetario">
+            <i class="fa-solid fa-receipt text-base"></i>
+            <span class="text-[9px] font-bold tracking-wider">RECETARIO</span>
+        </button>
+        <button onclick="switchTab('menu-semanal')" class="tab-btn flex flex-col items-center gap-1 p-2 text-gray-500" data-tab="menu-semanal">
+            <i class="fa-solid fa-calendar-days text-base"></i>
+            <span class="text-[9px] font-bold tracking-wider">7D CRONO</span>
+        </button>
+    </nav>
+
+    <script>
+        // --- DATA DE LA MINI APP ---
+        const accionesCriticas = [
+            { t: "1. Shot de Despertar", d: "Agua de alta pureza con limón médico y sal de mar gris en ayunas." },
+            { t: "2. Oxigenación Consciente", d: "Bloque de respiración profunda diafragmática para alcalinizar tejidos." },
+            { t: "3. Hidratación Inteligente", d: "Consumo mínimo de 3 litros de agua limpia a lo largo de la jornada." },
+            { t: "4. Estímulo Neuromuscular", d: "Activación muscular planificada para maximizar receptores metabólicos." },
+            { t: "5. Infusión Terapéutica PM", d: "Protocolo de tarde: infusión dorada desinflamatoria o reset de hidratación." },
+            { t: "6. Disciplina Nutricional Corta", d: "Respetar estrictamente los componentes limpios y bloques alimentarios." },
+            { t: "7. Higiene de Luz Celular", d: "Cero pantallas antes del descanso para optimizar la reparación mitocondrial." }
+        ];
+
+        const listaMercado = [
+            {
+                grupo: "Proteínas Limpias (Mínimo 7)",
+                items: [
+                    { n: "Pollo de pastoreo libre", i: "Pavo orgánico fileteado" },
+                    { n: "Pescado blanco (Calabaza/Mero)", i: "Trucha de río o lubina" },
+                    { n: "Salmón silvestre", i: "Sardinas limpias en agua mineral" },
+                    { n: "Claras de huevo de campo", i: "Huevos enteros de pastoreo (Días 6-7)" },
+                    { n: "PDM + F1 (Nutrición Celular)", i: "Proteína limpia aislada de alta absorción" },
+                    { n: "Muslos de pollo sin piel", i: "Contramuslos magros seleccionados" },
+                    { n: "Carne molida sin grasa", i: "Lomo fino de res limpio seleccionado" } // Ajuste solicitado aplicado aquí
+                ], color: "text-[#3897ff]"
+            },
+            {
+                grupo: "Grasas Energéticas (Mínimo 7)",
+                items: [
+                    { n: "Aguacate Hass maduro", i: "Aceite de aguacate extra virgen" },
+                    { n: "Aceite de coco MCT", i: "Manteca de cacao cruda" },
+                    { n: "Aceite de oliva extra virgen", i: "Aceite de linaza prensado en frío" },
+                    { n: "Yogurt griego natural (Alto en grasa)", i: "Kéfir de leche entera tradicional" },
+                    { n: "Nueces de nogal (5 unidades)", i: "Almendras crudas fileteadas o macadamias" },
+                    { n: "Ghee clarificado", i: "Mantequilla artesanal de libre pastoreo" },
+                    { n: "Semillas de chía densas", i: "Semillas de cáñamo descascaradas" }
+                ], color: "text-[#52d669]"
+            },
+            {
+                grupo: "Carbohidratos Alcalinos (Mínimo 7)",
+                items: [
+                    { n: "Espinaca baby fresca", i: "Acelga suiza o berros de agua" },
+                    { n: "Tomate de ensalada", i: "Pimentón rojo asado sin piel" },
+                    { n: "Cebolla blanca o morada", i: "Puerro o cebollín finamente picado" },
+                    { n: "Calabaza fresca", i: "Zucchini verde o zapallo tierno" },
+                    { n: "Brócoli o Coliflor", i: "Espárragos trigueros cortados" },
+                    { n: "Limón médico / Lima real", i: "Vinagre de sidra de manzana madre" },
+                    { n: "Kale o col rizada", i: "Hojas de mostaza o rúgula silvestre" }
+                ], color: "text-purple-400"
+            }
+        ];
+
+        const recetas = [
+            { t: "1. Revuelto de Claras con Tomate y Cebolla", m: "Proteínas: 24g | Grasas: 2g | Carbohidratos: 4g", p: "Cocinar 5 claras de huevo con tomate y cebolla picada en un sartén antiadherente con un spray mínimo de aceite de oliva." },
+            { t: "2. Batido Nutricional PDM + F1", m: "Proteínas: 24g | Grasas: 2.5g | Carbohidratos: 10g", p: "Licuar 2 scoops de F1 y 1 o 2 scoops de PDM en agua helada purificada. Consumir de inmediato para nutrición tisular completa." },
+            { t: "3. Pescado Blanco al vapor con Calabaza", m: "Proteínas: 28g | Grasas: 3g | Carbohidratos: 8g", p: "Filete de pescado blanco sazonado con sal marina, cocinado al vapor sobre rodajas de calabaza tierna." },
+            { t: "4. Pollo Mechado en Especias Nobles", m: "Proteínas: 30g | Grasas: 4g | Carbohidratos: 1g", p: "Pechuga de pollo desmechada cocinada en su propio jugo con pizca de comino, ajo y cilantro fresco." },
+            { t: "5. Muslos de Pollo con Pico de Gallo", m: "Proteínas: 26g | Grasas: 9g | Carbohidratos: 3g", p: "Muslos de pollo horneados sin piel, servidos con tomate, cebolla y limón médico picados en cubos finos." },
+            { t: "6. Huevos Enteros con Espinaca", m: "Proteínas: 18g | Grasas: 14g | Carbohidratos: 2g", p: "Sartenear dos huevos enteros de campo con una taza densa de espinaca baby y un toque de sal marina gris." },
+            { t: "7. Pollo a la Plancha con Arroz y Ensalada Verde", m: "Proteínas: 32g | Grasas: 5g | Carbohidratos: 22g", p: "Filete de pechuga a la plancha, acompañado de una porción medida de arroz blanco y mix de hojas verdes." },
+            { t: "8. Pescado Blanco al grill con Vegetales Calientes", m: "Proteínas: 28g | Grasas: 4g | Carbohidratos: 6g", p: "Pescado blanco al grill sobre una cama de brócoli, zucchini y espárragos salteados ligeramente." },
+            { t: "9. Tortilla Aligerada con Aguacate", m: "Proteínas: 16g | Grasas: 18g | Carbohidratos: 4g", p: "Preparar una tortilla fina de huevos, rellenar con un cuarto de aguacate Hass machacado con limón." },
+            { t: "10. Postre Saludable Cacao & Yogurt LION", m: "Proteínas: 15g | Grasas: 12g | Carbohidratos: 8g", p: "Mezclar yogurt griego natural con una cucharadita de cacao natural sin azúcar y 5 nueces de nogal trituradas." }
+        ];
+
+        const menusGiroExpress = [
+            {
+                fase: "DÍAS 1, 2 Y 3: NO CARBOHIDRATOS",
+                obj: "Reducir la inflamación inicial, vaciar reservas de glucógeno y activar el uso de grasa como fuente de energía. Eliminamos por completo los carbohidratos para darle un reinicio al cuerpo.",
+                pautas: ["Realizar 4-5 comidas pequeñas distribuidas a lo largo del día.", "Consumir ÚNICAMENTE proteínas limpias y vegetales.", "Beber 3 litros de agua como parte fundamental del proceso depurativo."],
+                comidas: [
+                    { n: "Comida 1 (Desayuno)", d: "Claras de huevo con tomate y cebolla." },
+                    { n: "Comida 2 (Media Mañana)", d: "Nutrición Celular (PDM + F1) o pollo mechado." },
+                    { n: "Comida 3 (Almuerzo)", d: "Pescado blanco con calabaza." },
+                    { n: "Comida 4 (Media Tarde - Snack)", d: "Claras de huevo o pollo mechado." },
+                    { n: "Comida 5 (Cena)", d: "Muslos de pollo con pico de gallo." },
+                    { n: "Comida 6 (Opcional Nocturna)", d: "Nutrición Celular (PDM + F1) o claras de huevo." }
+                ],
+                footer: "Recuerda consumir 3 litros de agua por día."
+            },
+            {
+                fase: "DÍAS 4 Y 5: PROTOCOLO DE RECARGA INTELIGENTE",
+                obj: "Eliminamos carbohidratos en comidas principales para vaciar glucógeno pero cerramos con un postre saludable estratégico. Envía una señal de seguridad al cuerpo, evita el estrés metabólico y previene el rebote.",
+                pautas: ["Carbohidrato solo en la comida 1 (Día 5) o postre en comida 4 (Día 4).", "Proteína y vegetales en las comidas siguientes.", "Hidratación alta obligatoria: 3 litros de agua.", "5-6 comidas pequeñas para mantener el metabolismo activo."],
+                comidas: [
+                    { n: "Comida 1 (Desayuno)", d: "Tortilla de huevos con aguacate (Día 4) o Con Papa al Horno (Día 5)." },
+                    { n: "Comida 2 (Media Mañana)", d: "Nutrición Celular (PDM + F1) o carne molida sin grasa." },
+                    { n: "Comida 3 (Almuerzo)", d: "Pollo a la plancha con pico de gallo." },
+                    { n: "Comida 4 (Media Tarde - Snack)", d: "CACAO NATURAL CON YOGURT GRIEGO natural + 5 nueces." },
+                    { n: "Comida 5 (Cena)", d: "Pescado blanco al grill con vegetales calientes." },
+                    { n: "Comida 6 (Opcional Nocturna)", d: "Nutrición Celular (PDM + F1) o 3 claras de huevo." }
+                ],
+                footer: "Menos inflamación, mejor digestión y control de antojos absoluto."
+            },
+            {
+                fase: "DÍAS 6 Y 7: ESTABILIZACIÓN Y ULTRA-FLUIDEZ",
+                obj: "Consolidar el equilibrio homeostático tisular. Estabilizar el pH optimizado e integrar grasas energéticas y proteínas magras de forma simétrica para cerrar el ciclo de desinflamación.",
+                pautas: ["Huevos enteros permitted con aporte de grasas saludables.", "Inclusión moderada de carbohidratos complejos limpios al almuerzo.", "Sostener el bloque de hidratación celular estricta."],
+                comidas: [
+                    { n: "Comida 1 (Desayuno)", d: "Huevos enteros con espinaca y cebolla." },
+                    { n: "Comida 2 (Media Mañana)", d: "Nutrición Celular (PDM + F1) + agua purificada." },
+                    { n: "Comida 3 (Almuerzo)", d: "Pollo a la plancha con arroz blanco medido y ensalada verde." },
+                    { n: "Comida 4 (Media Tarde - Snack)", d: "Claras de huevo o un puñado selecto de almendras crudas." },
+                    { n: "Comida 5 (Cena)", d: "Pescado blanco con vegetales al vapor." },
+                    { n: "Comida 6 (Opcional Nocturna)", d: "Nutrición Celular (PDM + F1) o claras de huevo." }
+                ],
+                footer: "Cierre estratégico y lleno de intención. Fin del bloque de adaptación 7D."
+            }
+        ];
+
+        function setupUI() {
+            // Checklists
+            const chkCont = document.getElementById('checklist-container');
+            chkCont.innerHTML = "";
+            accionesCriticas.forEach(a => {
+                chkCont.innerHTML += `
+                    <label class="flex items-center gap-3 p-3 bg-gray-950/50 border border-gray-900 rounded-xl cursor-pointer hover:bg-gray-900/40 transition">
+                        <input type="checkbox" onchange="updateProgress()" class="chk-item w-4 h-4 rounded accent-[#3897ff] bg-gray-900 border-gray-700">
+                        <div class="text-xs">
+                            <p class="font-semibold text-white">${a.t}</p>
+                            <p class="text-[10px] text-gray-500">${a.d}</p>
+                        </div>
+                    </label>
+                `;
+            });
+
+            // Suministros
+            const mktCont = document.getElementById('market-groups-container');
+            mktCont.innerHTML = "";
+            listaMercado.forEach(g => {
+                let itemsHTML = g.items.map(item => `
+                    <div class="border-b border-gray-900/40 py-2 last:border-0 flex justify-between items-center gap-4">
+                        <div class="w-1/2"><p class="text-white font-medium">${item.n}</p></div>
+                        <div class="w-1/2 text-right"><p class="text-gray-500 italic text-[11px]"><i class="fa-solid fa-right-left text-[9px] mr-1 text-gray-700"></i>${item.i}</p></div>
+                    </div>
+                `).join('');
+                mktCont.innerHTML += `
+                    <div class="p-4 bg-gray-950/60 border border-gray-900 rounded-2xl">
+                        <span class="text-[10px] font-bold bg-gray-900 border border-gray-800 px-2 py-0.5 rounded uppercase ${g.color}">${g.grupo}</span>
+                        <div class="mt-3 divide-y divide-gray-900/50 text-xs">${itemsHTML}</div>
+                    </div>
+                `;
+            });
+
+            // Recetas
+            const rcpCont = document.getElementById('recipes-container');
+            rcpCont.innerHTML = "";
+            recetas.forEach(r => {
+                rcpCont.innerHTML += `
+                    <div class="border border-gray-900 rounded-xl bg-gray-950/40 overflow-hidden">
+                        <button class="w-full p-3.5 text-left flex justify-between items-center font-semibold text-xs text-white" onclick="toggleAccordion(this)">
+                            <span><i class="fa-solid fa-mortar-pestle text-[#3897ff] mr-2"></i>${r.t}</span>
+                            <i class="fa-solid fa-chevron-down text-gray-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden p-4 pt-0 text-xs text-gray-400 border-t border-gray-900/60 space-y-2 bg-black/20">
+                            <p class="text-[10px] font-bold text-[#52d669]">${r.m}</p>
+                            <p class="text-gray-300 leading-relaxed"><strong>Preparación:</strong> ${r.p}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Cronograma 7D
+            const daysCont = document.getElementById('days-container');
+            daysCont.innerHTML = "";
+            const mapping = [0, 0, 0, 1, 1, 2, 2]; 
+            const diasNombres = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+
+            diasNombres.forEach((d, idx) => {
+                const mData = menusGiroExpress[mapping[idx]];
+                let comidasHTML = mData.comidas.map(c => `
+                    <div class="bg-black/40 border border-gray-900 p-2.5 rounded-xl space-y-0.5">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">${c.n}</p>
+                        <p class="text-white text-xs font-medium">${c.d}</p>
+                    </div>
+                `).join('');
+
+                let pautasHTML = mData.pautas.map(p => `<li class="text-gray-400 text-[11px] list-disc list-inside">${p}</li>`).join('');
+
+                daysCont.innerHTML += `
+                    <div class="border border-gray-900 rounded-2xl bg-gray-950/40 overflow-hidden">
+                        <button class="w-full p-4 text-left flex justify-between items-center font-semibold text-xs text-white" onclick="toggleAccordion(this)">
+                            <span><i class="fa-regular fa-calendar-check text-[#52d669] mr-2"></i>DÍA ${idx+1} - ${d.toUpperCase()}</span>
+                            <span class="text-[10px] text-gray-500 font-normal ml-auto mr-3">${mData.fase.split(':')[0]}</span>
+                            <i class="fa-solid fa-chevron-down text-gray-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden p-4 pt-0 border-t border-gray-900/60 space-y-4 bg-black/30">
+                            <div class="space-y-1.5 mt-3">
+                                <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Objetivo de la Fase</p>
+                                <p class="text-gray-300 text-xs leading-relaxed font-light">${mData.obj}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Pautas del Día</p>
+                                <ul class="space-y-0.5">${pautasHTML}</ul>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-[10px] font-bold text-[#3897ff] uppercase tracking-wider">Estructura del Menú</p>
+                                <div class="grid grid-cols-1 gap-2">${comidasHTML}</div>
+                            </div>
+                            <div class="text-center py-1 border-t border-gray-900/40">
+                                <p class="text-[10px] text-[#52d669] italic font-semibold uppercase tracking-wide"><i class="fa-solid fa-droplet mr-1"></i>${mData.footer}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.chk-item').length;
+            const checked = document.querySelectorAll('.chk-item:checked').length;
+            document.getElementById('checklist-progress').innerText = `${checked}/${total}`;
+        }
+
+        function toggleAccordion(element) {
+            const body = element.nextElementSibling;
+            const icon = element.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+            if (body.classList.contains('hidden')) {
+                body.classList.remove('hidden');
+                if (icon) icon.className = "fa-solid fa-chevron-up text-gray-400 transition-transform";
+            } else {
+                body.classList.add('hidden');
+                if (icon) icon.className = "fa-solid fa-chevron-down text-gray-600 transition-transform";
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('text-[#3897ff]', 'text-gray-500');
+                if (b.getAttribute('data-tab') === tabId) b.classList.add('text-[#3897ff]');
+                else b.classList.add('text-gray-500');
+            });
+            if(tabId === 'biometria') {
+                setTimeout(resizeCanvas, 30);
+            }
+        }
+
+        // --- SISTEMA INTERACTIVO DE TEJIDO DE PARTÍCULAS MOLECULARES (CÉLULAS AGLUTINADAS VS FLUIDAS) ---
+        let scene, camera, renderer, particleSystem;
+        const particleCount = 180; 
+        let positions = new Float32Array(particleCount * 3);
+        let targetPositions = new Float32Array(particleCount * 3);
+        let colors = new Float32Array(particleCount * 3);
+
+        let currentTargetRadius = 1.3; 
+        let currentSpread = 0.15; 
+        let targetColor = new THREE.Color(0x3897ff);
+
+        function init3DCell() {
+            const container = document.getElementById('cell-3d-canvas');
+            if (!container) return;
+
+            try {
+                const width = container.clientWidth || 350;
+                const height = container.clientHeight || 320;
+
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+                camera.position.z = 4.2;
+
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(width, height);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                container.appendChild(renderer.domElement);
+
+                const geometry = new THREE.BufferGeometry();
+
+                for (let i = 0; i < particleCount; i++) {
+                    const u = Math.random();
+                    const v = Math.random();
+                    const theta = u * 2.0 * Math.PI;
+                    const phi = Math.acos(2.0 * v - 1.0);
+                    
+                    positions[i * 3] = Math.sin(phi) * Math.cos(theta);
+                    positions[i * 3 + 1] = Math.sin(phi) * Math.sin(theta);
+                    positions[i * 3 + 2] = Math.cos(phi);
+                }
+
+                geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(particleCount * 3), 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const canvas = document.createElement('canvas');
+                canvas.width = 16;
+                canvas.height = 16;
+                const ctx = canvas.getContext('2d');
+                const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+                gradient.addColorStop(0, 'rgba(255,255,255,1)');
+                gradient.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 16, 16);
+                const particleTexture = new THREE.CanvasTexture(canvas);
+
+                const material = new THREE.PointsMaterial({
+                    size: 0.16,
+                    map: particleTexture,
+                    vertexColors: true,
+                    transparent: true,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                });
+
+                particleSystem = new THREE.Points(geometry, material);
+                scene.add(particleSystem);
+
+                calculateTargets();
+
+                let clock = new THREE.Clock();
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    const posAttr = geometry.attributes.position;
+                    const colAttr = geometry.attributes.color;
+                    let time = Date.now() * 0.0015;
+
+                    for (let i = 0; i < particleCount; i++) {
+                        const bx = positions[i * 3];
+                        const by = positions[i * 3 + 1];
+                        const bz = positions[i * 3 + 2];
+
+                        let noiseX = Math.sin(time + i) * currentSpread;
+                        let noiseY = Math.cos(time * 0.8 + i) * currentSpread;
+                        let noiseZ = Math.sin(time * 1.2 + i) * currentSpread;
+
+                        targetPositions[i * 3] = bx * currentTargetRadius + noiseX;
+                        targetPositions[i * 3 + 1] = by * currentTargetRadius + noiseY;
+                        targetPositions[i * 3 + 2] = bz * currentTargetRadius + noiseZ;
+
+                        posAttr.array[i * 3] += (targetPositions[i * 3] - posAttr.array[i * 3]) * 0.1;
+                        posAttr.array[i * 3 + 1] += (targetPositions[i * 3 + 1] - posAttr.array[i * 3 + 1]) * 0.1;
+                        posAttr.array[i * 3 + 2] += (targetPositions[i * 3 + 2] - posAttr.array[i * 3 + 2]) * 0.1;
+
+                        colAttr.array[i * 3] += (targetColor.r - colAttr.array[i * 3]) * 0.1;
+                        colAttr.array[i * 3 + 1] += (targetColor.g - colAttr.array[i * 3 + 1]) * 0.1;
+                        colAttr.array[i * 3 + 2] += (targetColor.b - colAttr.array[i * 3 + 2]) * 0.1;
+                    }
+
+                    posAttr.needsUpdate = true;
+                    colAttr.needsUpdate = true;
+
+                    particleSystem.rotation.y += 0.004;
+                    particleSystem.rotation.x += 0.002;
+
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                if (window.ResizeObserver) {
+                    const ro = new ResizeObserver(() => resizeCanvas());
+                    ro.observe(container);
+                } else {
+                    window.addEventListener('resize', resizeCanvas);
+                }
+            } catch (e) {
+                console.error("Fallo controlado en el renderizador molecular:", e);
+            }
+        }
+
+        function calculateTargets() {
+            if(!particleSystem) return;
+            const posAttr = particleSystem.geometry.attributes.position;
+            for (let i = 0; i < particleCount; i++) {
+                posAttr.array[i * 3] = positions[i * 3] * currentTargetRadius;
+                posAttr.array[i * 3 + 1] = positions[i * 3 + 1] * currentTargetRadius;
+                posAttr.array[i * 3 + 2] = positions[i * 3 + 2] * currentTargetRadius;
+            }
+            posAttr.needsUpdate = true;
+        }
+
+        function resizeCanvas() {
+            const container = document.getElementById('cell-3d-canvas');
+            if (!container || !camera || !renderer) return;
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            if (w > 0 && h > 0) {
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+            }
+        }
+
+        // --- MANEJADOR DE TRANSICIÓN DE ESTADOS Y DEFINICIONES REQUERIDAS ---
+        const wrapper = document.getElementById('canvas-container');
+        const estados = {
+            1: {
+                title: "Fase 1: Acidosis Crítica", badge: "FASE 1", badgeCls: "bg-[#ff4b4b]/10 text-[#ff4b4b]", txtCls: "text-[#ff4b4b]",
+                ph: "6.85", phSt: "Alerta de Toxicidad e Inflamación", o2: "84%", o2St: "Hipoxia Mitocondrial Crítica",
+                color: 0xff4b4b, radius: 0.6, spread: 0.35, glow: "shadow-glow-acid", border: "border-[#ff4b4b]",
+                definition: "<strong>Definición:</strong> Estado de alta toxicidad intersticial debido a hábitos inflamatorios crónicos.<br><strong>Características:</strong> Las células pierden su carga eléctrica repulsiva, lo que provoca que se <strong>aglutinen, compriman y asfixien mutuamente</strong>. El entorno carece de oxígeno (hipoxia) y el pH cae a rangos ácidos, bloqueando la producción eficiente de energía mitocondrial."
+            },
+            2: {
+                title: "Fase 2: Reactivación Activa", badge: "FASE 2", badgeCls: "bg-[#52d669]/10 text-[#52d669]", txtCls: "text-[#52d669]",
+                ph: "7.32", phSt: "Equilibrio Tisular Estándar", o2: "95%", o2St: "Oxigenación en Proceso",
+                color: 0x52d669, radius: 1.1, spread: 0.12, glow: "shadow-glow-alkaline", border: "border-[#52d669]",
+                definition: "<strong>Definición:</strong> Etapa de transición metabólica lograda mediante pautas de limpieza tisular.<br><strong>Características:</strong> Las membranas celulares comienzan a recuperar su potencial eléctrico balanceado. Las micocélulas <strong>empiezan a separarse</strong>, reduciendo la fricción y permitiendo una circulación fluida de nutrientes y una recaptación saludable de oxígeno en los tejidos."
+            },
+            3: {
+                title: "Fase 3: Estado Óptimo LION", badge: "FASE 3", badgeCls: "bg-[#3897ff]/10 text-[#3897ff]", txtCls: "text-[#3897ff]",
+                ph: "7.45", phSt: "Ultra-fluidización Homeostática", o2: "99%", o2St: "Saturación Mitocondrial Máxima",
+                color: 0x3897ff, radius: 1.5, spread: 0.05, glow: "shadow-glow-lion", border: "border-[#3897ff]",
+                definition: "<strong>Definición:</strong> Máxima homeostasis tisular y alcalinidad bio-optimizada bajo el protocolo LION.<br><strong>Características:</strong> Máxima repelencia electromagnética natural. Las células se aprecian <strong>completamente esféricas, saludables, libres y expandidas en ultra-fluidez</strong>. La saturación de oxígeno roza la perfección (99%) permitiendo una quema energética y regeneración mitocondrial acelerada."
+            }
+        };
+
+        function updateState(st) {
+            const state = parseInt(st);
+            const d = estados[state];
+
+            document.getElementById('phase-title').innerText = d.title;
+            document.getElementById('phase-title').className = `text-xs font-bold transition-all ${d.txtCls}`;
+            document.getElementById('phase-badge').innerText = d.badge;
+            document.getElementById('phase-badge').className = `px-2 py-0.5 rounded text-[9px] font-bold ${d.badgeCls}`;
+            
+            document.getElementById('ph-value').innerText = d.ph;
+            document.getElementById('ph-value').className = `text-xl font-bold tracking-tight ${d.txtCls}`;
+            document.getElementById('ph-status').innerText = d.phSt;
+            
+            document.getElementById('o2-value').innerText = d.o2;
+            document.getElementById('o2-value').className = `text-xl font-bold tracking-tight ${d.txtCls}`;
+            document.getElementById('o2-status').innerText = d.o2St;
+
+            // Inyección de texto explicativo solicitado
+            document.getElementById('state-definition-text').innerHTML = d.definition;
+            document.getElementById('state-definition-container').className = `p-4 rounded-2xl bg-gray-950/60 border transition-all duration-300 ${d.border}`;
+
+            wrapper.className = `relative w-full h-80 bg-gradient-to-b from-gray-950 to-black rounded-3xl border transition-all duration-500 ${d.glow} ${d.border}`;
+
+            // Parámetros físicos de la nube de partículas interactiva
+            targetColor.setHex(d.color);
+            currentTargetRadius = d.radius;
+            currentSpread = d.spread;
+        }
+
+        document.getElementById('biomarker-slider').addEventListener('input', (e) => updateState(e.target.value));
+        
+        function setSlider(v) {
+            document.getElementById('biomarker-slider').value = v;
+            updateState(v);
+        }
+
+        // Ejecución Segura
+        document.addEventListener("DOMContentLoaded", () => {
+            setupUI();
+            init3DCell();
+            
+            // Forzar renderizado inicial en el Estado Óptimo LION
+            setTimeout(() => {
+                updateState(3);
+                resizeCanvas();
+            }, 100);
+        });
+    </script>
+</body>
+</html>
