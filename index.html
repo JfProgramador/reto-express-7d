@@ -239,9 +239,9 @@
                     { n: "Aguacate Hass maduro", i: "Aceite de aguacate extra virgen" },
                     { n: "Aceite de coco MCT", i: "Manteca de cacao cruda" },
                     { n: "Aceite de oliva extra virgen", i: "Aceite de linaza" },
-                    { n: "Yogurt griego natural", i: "Kéfir de leche entera" },
+                    { n: "Aceite de Aguacate", i: "Aceitunas" },
                     { n: "Nueces de nogal (5 uni)", i: "Almendras crudas fileteadas" },
-                    { n: "Ghee clarificado", i: "Mantequilla artesanal" },
+                    { n: "Mantequilla de almendras", i: "Mantequilla artesanal" },
                     { n: "Semillas de chía densas", i: "Semillas de cáñamo" }
                 ], color: "text-[#52d669]"
             },
@@ -250,11 +250,11 @@
                 items: [
                     { n: "Avena integral en hojuelas", i: "Harina de avena entera" },
                     { n: "Papa sabanera al horno", i: "Papa pastusa al vapor" },
-                    { n: "Arroz blanco medido", i: "Arroz integral largo" },
-                    { n: "Camote o batata dulce", i: "Yuca cocida sin hilos" },
+                    { n: "Arroz Parborizado", i: "Arroz integral largo" },
+                    { n: "Papa Criolla", i: "Yuca cocida sin hilos" },
                     { n: "Quinoa real lavada", i: "Amaranto orgánico inflado" },
                     { n: "Plátano verde o maduro", i: "Calabaza o auyama horneada" },
-                    { n: "Frutos rojos (Fresas)", i: "Manzana verde / Kiwi" }
+                    { n: "Tortillas (Maiz)", i: "Patacon / Arepa" }
                 ], color: "text-amber-400"
             },
             {
@@ -273,8 +273,8 @@
 
         const horariosProtocolos = [
             { h: "06:00 AM", p: "Paso 1: Limpia y Cicatriza", m: "Gel de Linaza/Chía + Gelatina sin sabor (en ayunas)", f: "Recubrimiento gástrico, modulación del pH y reparación de la mucosa intestinal." },
-            { h: "06:20 AM", p: "Paso 2: Oxigena y Biorregula", m: "Jugo Verde de alta densidad (Espinaca, Apio, Limón)", f: "Vasodilatación periférica, neutralización de radicales libres y barrido de colon." },
-            { h: "08:30 AM", p: "Paso 3: Nutre y Regenera", m: "Batido Nutricional de Avena y Frutos Rojos + Huevos", f: "Aporte de los 114 nutrientes basales y activación de la síntesis proteica." },
+            { h: "06:20 AM", p: "Paso 2: Oxigena y Biorregula", m: "Jugo Verde de alta densidad (Espinaca, Apio, Manzana Verde, Limón)", f: "Vasodilatación periférica, neutralización de radicales libres y barrido de colon." },
+            { h: "08:30 AM", p: "Paso 3: Nutre y Regenera", m: "Bowl de Avena, almendras y frutos con Huevos revueltos", f: "Aporte de los 114 nutrientes basales y activación de la síntesis proteica." },
             { h: "01:30 PM", p: "Almuerzo Biocompatible", m: "Proteína limpia + Ensalada Arcoíris + Grasas", f: "Sostenimiento del balance de nitrógeno y aporte multivitamínico denso." },
             { h: "06:30 PM", p: "Cena de Cierre", m: "Proteína magra + Vegetales verdes cocidos al vapor", f: "Reparación celular nocturna sin picos de insulina. Inicio de ventana de ayuno." }
         ];
@@ -309,7 +309,7 @@
                     { n: "Comida 1", d: "Tortilla con aguacate (Día 4) o Papa (Día 5)." },
                     { n: "Comida 2", d: "Nutrición Celular o carne molida sin grasa." },
                     { n: "Comida 3", d: "Pollo a la plancha con pico de gallo." },
-                    { n: "Comida 4", d: "CACAO NATURAL CON YOGURT + nueces." },
+                    { n: "Comida 4", d: "Cacao Natural + Yogurt Griego + nueces." },
                     { n: "Comida 5", d: "Pescado blanco al grill con vegetales." }
                 ],
                 footer: "Menos inflamación, mejor digestión y control de antojos."
@@ -321,7 +321,7 @@
                 comidas: [
                     { n: "Comida 1", d: "Huevos enteros con espinaca y cebolla." },
                     { n: "Comida 2", d: "Nutrición Celular (PDM + F1) + agua." },
-                    { n: "Comida 3", d: "Pollo a la plancha con arroz blanco y ensalada." },
+                    { n: "Comida 3", d: "Pollo a la plancha con arroz Parborizado y ensalada." },
                     { n: "Comida 4", d: "Claras de huevo o almendras crudas." },
                     { n: "Comida 5", d: "Pescado blanco con vegetales al vapor." }
                 ],
@@ -331,24 +331,24 @@
 
         // --- DATA DE RUTINAS ---
         const rutinaA = [
-            { n: "1. Bodyweight Squats", s: "4 Series", r: "15-20 Reps", m: "Cuádriceps, Glúteos", t: "Pies al ancho de hombros. Baja cadera rompiendo el paralelo, pecho erguido.", p: "Evita levantar talones." },
-            { n: "2. Incline Push-Ups", s: "4 Series", r: "10-12 Reps", m: "Pectoral, Tríceps", t: "Manos en superficie elevada. Cuerpo en línea recta perfecta, desciende pecho.", p: "No dejes caer la cadera." },
-            { n: "3. Plank Jump-Ins", s: "3 Series", r: "30-45 Seg", m: "Core, Estabilizadores", t: "Plancha alta. Salto llevando pies a manos y regresa a plancha.", p: "Amortigua con puntas de pies." },
-            { n: "4. Knee Pull-Ins", s: "3 Series", r: "12-15 Reps", m: "Abdomen Inferior", t: "Sentado, inclina torso atrás. Extiende y recoge rodillas al pecho.", p: "Movimiento controlado, sin inercia." },
-            { n: "5. Cross Crunches", s: "3 Series", r: "15 por lado", m: "Oblicuos", t: "Boca arriba, eleva torso rotando para conectar codo con rodilla opuesta.", p: "La fuerza nace del abdomen, no del cuello." },
-            { n: "6. Leg Raises", s: "3 Series", r: "12-15 Reps", m: "Abdomen profundo", t: "Boca arriba. Eleva piernas a 90 grados y desciende sin tocar el suelo.", p: "Manos bajo glúteos para proteger lumbar." },
-            { n: "7. Superman Holds", s: "3 Series", r: "20-30 Seg", m: "Erectores, Lumbar", t: "Boca abajo. Eleva pecho y muslos simultáneamente.", p: "Mirada al suelo para proteger cervicales." },
-            { n: "8. Wall Sit Hold", s: "3 Series", r: "30-45 Seg", m: "Cuádriceps", t: "Espalda a la pared, baja cadera a 90 grados. Mantén postura.", p: "Talones firmes bajo las rodillas." },
-            { n: "9. Calf Raises", s: "3 Series", r: "20-25 Reps", m: "Pantorrillas", t: "Elévate sobre puntas de pies, pausa arriba y desciende.", p: "Rango completo sin rebotar." }
+            { n: "1. Bodyweight Squats", s: "2 Series", r: "30-40 Seg ", m: "Cuádriceps, Glúteos", t: "Pies al ancho de hombros. Baja cadera rompiendo el paralelo, pecho erguido.", p: "Evita levantar talones. Descanso 30 seg entre series" },
+            { n: "2. Incline Push-Ups", s: "2 Series", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Manos en superficie elevada. Cuerpo en línea recta perfecta, desciende pecho.", p: "No dejes caer la cadera. Descanso 30 seg entre serie" },
+            { n: "3. Plank Jump-Ins", s: "2 Series", r: "30-40 Seg", m: "Core, Estabilizadores", t: "Plancha alta. Salto llevando pies a manos y regresa a plancha.", p: "Amortigua con puntas de pies. Descanso 30 seg entre serie" },
+            { n: "4. Knee Pull-Ins", s: "2 Series", r: "30-40 Seg", m: "Abdomen Inferior", t: "Sentado, inclina torso atrás. Extiende y recoge rodillas al pecho.", p: "Movimiento controlado, sin inercia. Descanso 30 seg entre serie" },
+            { n: "5. Cross Crunches", s: "2 Series", r: "30-40 Seg", m: "Oblicuos", t: "Boca arriba, eleva torso rotando para conectar codo con rodilla opuesta.", p: "La fuerza nace del abdomen, no del cuello. Descanso 30 seg entre serie" },
+            { n: "6. Leg Raises", s: "2 Series", r: "30-40 Seg", m: "Abdomen profundo", t: "Boca arriba. Eleva piernas a 90 grados y desciende sin tocar el suelo.", p: "Manos bajo glúteos para proteger lumbar. Descanso 30 seg entre serie" },
+            { n: "7. Superman Holds", s: "2 Series", r: "30-40 Seg", m: "Erectores, Lumbar", t: "Boca abajo. Eleva pecho y muslos simultáneamente.", p: "Mirada al suelo para proteger cervicales. Descanso 30 seg entre serie" },
+            { n: "8. Wall Sit Hold", s: "2 Series", r: "30-40 Seg", m: "Cuádriceps", t: "Espalda a la pared, baja cadera a 90 grados. Mantén postura.", p: "Talones firmes bajo las rodillas. Descanso 30 seg entre serie" },
+            { n: "9. Calf Raises", s: "2 Series", r: "30-40 Seg", m: "Pantorrillas", t: "Elévate sobre puntas de pies, pausa arriba y desciende.", p: "Rango completo sin rebotar. Descanso 30 seg entre serie" }
         ];
 
         const rutinaB = [
-            { n: "1. Burpees", s: "4 Circuitos", r: "8-10 Reps", m: "Potencia, Cardio", t: "Cuclillas, plancha alta, flexión, regresa pies, salto vertical explosivo.", p: "Prioriza fluidez sobre velocidad." },
-            { n: "2. Shoulder Taps", s: "4 Circuitos", r: "20 Reps", m: "Core, Hombros", t: "Plancha alta. Toca hombro opuesto alternadamente.", p: "Evita balancear las caderas." },
-            { n: "3. Kneeling Pushups", s: "4 Circuitos", r: "10-12 Reps", m: "Pectoral, Tríceps", t: "Apoya rodillas. Cadera al frente, desciende pecho controladamente.", p: "Codos en diagonal (45 grados)." },
-            { n: "4. Flutter Kicks", s: "3 Circuitos", r: "30-45 Seg", m: "Abdomen Inferior", t: "Boca arriba. Pataleo vertical corto y continuo.", p: "Lumbar siempre pegada al suelo." },
-            { n: "5. Jumping Jacks", s: "4 Circuitos", r: "45 Seg", m: "Cardio Alta Intensidad", t: "Salto abriendo piernas y llevando manos sobre la cabeza.", p: "Amortigua cayendo sobre puntas." },
-            { n: "6. Mountain Climbers", s: "4 Circuitos", r: "30-45 Seg", m: "Core, Cardio", t: "Plancha alta. Rodillas al pecho alternadas a alta velocidad.", p: "Cadera baja, no hagas pirámide." }
+            { n: "1. Burpees", s: "3 Circuitos", r: "30-40 Seg", m: "Potencia, Cardio", t: "Cuclillas, plancha alta, flexión, regresa pies, salto vertical explosivo.", p: "Prioriza fluidez sobre velocidad. Descanso 30 seg entre serie" },
+            { n: "2. Shoulder Taps", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Hombros", t: "Plancha alta. Toca hombro opuesto alternadamente.", p: "Evita balancear las caderas. Descanso 30 seg entre serie" },
+            { n: "3. Kneeling Pushups", s: "3 Circuitos", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Apoya rodillas. Cadera al frente, desciende pecho controladamente.", p: "Codos en diagonal (45 grados). Descanso 30 seg entre serie" },
+            { n: "4. High Neeks", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio", t: "De pie. Elevo rodillas de manera alterna y continuo.", p: "Abdomen activo y utilizo brazos. Descanso 30 seg entre serie" },
+            { n: "5. Jumping Jacks", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio Alta Intensidad", t: "Salto abriendo piernas y llevando manos sobre la cabeza.", p: "Amortigua cayendo sobre puntas. Descanso 30 seg entre serie" },
+            { n: "6. Mountain Climbers", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Cardio", t: "Plancha alta. Rodillas al pecho alternadas a alta velocidad.", p: "Cadera baja, no hagas pirámide. Descanso 30 seg entre serie" }
         ];
 
         // --- FUNCIONES UI ENTORNO ---
