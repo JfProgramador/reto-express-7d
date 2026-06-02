@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -93,7 +92,7 @@
 
             <div id="state-definition-container" class="p-4 rounded-2xl bg-gray-950/60 border border-gray-900 transition-all duration-300">
                 <p class="text-[10px] font-bold tracking-wider text-gray-500 uppercase mb-1">Diagnóstico Clínico Simulado</p>
-                <p id="state-definition-text" class="text-xs text-gray-300 leading-relaxed font-light"></p>
+                <div id="state-definition-text" class="text-xs text-gray-300 leading-relaxed font-light"></div>
             </div>
 
             <div class="space-y-3">
@@ -478,7 +477,6 @@
             document.getElementById('checklist-progress').innerText = `${checked}/${total}`;
         }
 
-        // Sistema de acordeones base
         function toggleAccordion(element) {
             const body = element.nextElementSibling;
             const icon = element.querySelector('i.fa-chevron-down, i.fa-chevron-up');
@@ -504,7 +502,6 @@
             }
         }
 
-        // --- LÓGICA DE ENTRENAMIENTO ---
         function renderWorkout(type) {
             const container = document.getElementById('workout-list-container');
             container.innerHTML = "";
@@ -538,7 +535,6 @@
             });
         }
 
-        // Función ajustada con precisión absoluta para extensiones limpias en .JPG
         function changeRoutine(type) {
             const btnA = document.getElementById('btn-routine-A');
             const btnB = document.getElementById('btn-routine-B');
@@ -553,8 +549,6 @@
                 focusBox.className = "p-3 rounded-xl bg-gray-950/40 border border-gray-900/60 flex items-center justify-between transition-all duration-300 border-l-2 border-l-[#52d669]";
                 anatTitle.innerText = "Fuerza-Resistencia Corporal Completa";
                 anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">CORE</span><span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">TREN INFERIOR</span>`;
-                
-                // Enfoque exacto asignado: archivo fuerza.JPG sin extensiones duplicadas
                 imgEl.src = "fuerza.JPG";
             } else {
                 btnB.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-white bg-gray-900 border border-gray-800 shadow-sm";
@@ -562,14 +556,11 @@
                 focusBox.className = "p-3 rounded-xl bg-gray-950/40 border border-gray-900/60 flex items-center justify-between transition-all duration-300 border-l-2 border-l-purple-400";
                 anatTitle.innerText = "Protocolo Metabólico Cardio Quema-Grasa";
                 anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">METABÓLICO</span><span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">POTENCIA</span>`;
-                
-                // Enfoque exacto asignado: archivo cardio.JPG sin extensiones duplicadas
                 imgEl.src = "cardio.JPG";
             }
             renderWorkout(type);
         }
 
-        // Temporizador base
         let timerInterval = null;
         let totalSeconds = 0;
         function toggleTimer() {
@@ -596,13 +587,11 @@
             document.getElementById('btn-timer-play').innerHTML = `<i class="fa-solid fa-play"></i>`;
         }
 
-        // --- SISTEMA INTERACTIVO DE TEJIDO DE PARTÍCULAS MOLECULARES ---
         let scene, camera, renderer, particleSystem;
         const particleCount = 180; 
         let positions = new Float32Array(particleCount * 3);
         let targetPositions = new Float32Array(particleCount * 3);
         let colors = new Float32Array(particleCount * 3);
-
         let currentTargetRadius = 1.3; 
         let currentSpread = 0.15; 
         let targetColor = new THREE.Color(0x3897ff);
@@ -610,131 +599,82 @@
         function init3DCell() {
             const container = document.getElementById('cell-3d-canvas');
             if (!container) return;
-
             try {
                 const width = container.clientWidth || 350;
                 const height = container.clientHeight || 320;
-
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
                 camera.position.z = 4.2;
-
                 renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
                 renderer.setSize(width, height);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 container.appendChild(renderer.domElement);
-
                 const geometry = new THREE.BufferGeometry();
-
                 for (let i = 0; i < particleCount; i++) {
-                    const u = Math.random();
-                    const v = Math.random();
-                    const theta = u * 2.0 * Math.PI;
-                    const phi = Math.acos(2.0 * v - 1.0);
-                    
+                    const u = Math.random(); const v = Math.random();
+                    const theta = u * 2.0 * Math.PI; const phi = Math.acos(2.0 * v - 1.0);
                     positions[i * 3] = Math.sin(phi) * Math.cos(theta);
                     positions[i * 3 + 1] = Math.sin(phi) * Math.sin(theta);
                     positions[i * 3 + 2] = Math.cos(phi);
                 }
-
                 geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(particleCount * 3), 3));
                 geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-                const canvas = document.createElement('canvas');
-                canvas.width = 16;
-                canvas.height = 16;
-                const ctx = canvas.getContext('2d');
-                const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
-                gradient.addColorStop(0, 'rgba(255,255,255,1)');
-                gradient.addColorStop(1, 'rgba(255,255,255,0)');
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, 0, 16, 16);
+                const canvas = document.createElement('canvas'); canvas.width = 16; canvas.height = 16;
+                const ctx = canvas.getContext('2d'); const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+                gradient.addColorStop(0, 'rgba(255,255,255,1)'); gradient.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.fillStyle = gradient; ctx.fillRect(0, 0, 16, 16);
                 const particleTexture = new THREE.CanvasTexture(canvas);
-
-                const material = new THREE.PointsMaterial({
-                    size: 0.16,
-                    map: particleTexture,
-                    vertexColors: true,
-                    transparent: true,
-                    blending: THREE.AdditiveBlending,
-                    depthWrite: false
-                });
-
+                const material = new THREE.PointsMaterial({ size: 0.16, map: particleTexture, vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
                 particleSystem = new THREE.Points(geometry, material);
                 scene.add(particleSystem);
-
                 calculateTargets();
-
                 function animate() {
                     requestAnimationFrame(animate);
-                    
                     const posAttr = geometry.attributes.position;
                     const colAttr = geometry.attributes.color;
                     let time = Date.now() * 0.0015;
-
                     for (let i = 0; i < particleCount; i++) {
-                        const bx = positions[i * 3];
-                        const by = positions[i * 3 + 1];
-                        const bz = positions[i * 3 + 2];
-
-                        let noiseX = Math.sin(time + i) * currentSpread;
-                        let noiseY = Math.cos(time * 0.8 + i) * currentSpread;
-                        let noiseZ = Math.sin(time * 1.2 + i) * currentSpread;
-
+                        const bx = positions[i * 3], by = positions[i * 3 + 1], bz = positions[i * 3 + 2];
+                        let noiseX = Math.sin(time + i) * currentSpread, noiseY = Math.cos(time * 0.8 + i) * currentSpread, noiseZ = Math.sin(time * 1.2 + i) * currentSpread;
                         targetPositions[i * 3] = bx * currentTargetRadius + noiseX;
                         targetPositions[i * 3 + 1] = by * currentTargetRadius + noiseY;
                         targetPositions[i * 3 + 2] = bz * currentTargetRadius + noiseZ;
-
                         posAttr.array[i * 3] += (targetPositions[i * 3] - posAttr.array[i * 3]) * 0.1;
                         posAttr.array[i * 3 + 1] += (targetPositions[i * 3 + 1] - posAttr.array[i * 3 + 1]) * 0.1;
                         posAttr.array[i * 3 + 2] += (targetPositions[i * 3 + 2] - posAttr.array[i * 3 + 2]) * 0.1;
-
                         colAttr.array[i * 3] += (targetColor.r - colAttr.array[i * 3]) * 0.1;
                         colAttr.array[i * 3 + 1] += (targetColor.g - colAttr.array[i * 3 + 1]) * 0.1;
                         colAttr.array[i * 3 + 2] += (targetColor.b - colAttr.array[i * 3 + 2]) * 0.1;
                     }
-
-                    posAttr.needsUpdate = true;
-                    colAttr.needsUpdate = true;
-
-                    particleSystem.rotation.y += 0.004;
-                    particleSystem.rotation.x += 0.002;
-
+                    posAttr.needsUpdate = true; colAttr.needsUpdate = true;
+                    particleSystem.rotation.y += 0.004; particleSystem.rotation.x += 0.002;
                     renderer.render(scene, camera);
                 }
                 animate();
-
-                if (window.ResizeObserver) {
-                    const ro = new ResizeObserver(() => resizeCanvas());
-                    ro.observe(container);
-                } else {
-                    window.addEventListener('resize', resizeCanvas);
-                }
-            } catch (e) {
-                console.error("Fallo en el renderizador molecular:", e);
-            }
+                if (window.ResizeObserver) { const ro = new ResizeObserver(() => resizeCanvas()); ro.observe(container); }
+                else { window.addEventListener('resize', resizeCanvas); }
+            } catch (e) { console.error("Fallo en el renderizador molecular:", e); }
         }
 
-        // --- MANEJADOR DE TRANSICIÓN DE ESTADOS ---
         const wrapper = document.getElementById('canvas-container');
         const estados = {
             1: {
                 title: "Fase 1: Acidosis Crítica", badge: "FASE 1", badgeCls: "bg-[#ff4b4b]/10 text-[#ff4b4b]", txtCls: "text-[#ff4b4b]",
                 ph: "6.85", phSt: "Alerta de Toxicidad e Inflamación", o2: "84%", o2St: "Hipoxia Mitocondrial Crítica",
                 color: 0xff4b4b, radius: 0.6, spread: 0.35, glow: "shadow-glow-acid", border: "border-[#ff4b4b]",
-                definition: "<strong>Definición:</strong> Estado de alta toxicidad intersticial debido a hábitos inflamatorios crónicos.<br><strong>Características:</strong> Las células pierden su carga eléctrica repulsiva, lo que provoca que se <strong>aglutinen, compriman y asfixien mutuamente</strong>. El entorno carece de oxígeno (hipoxia) y el pH cae a rangos ácidos."
+                definition: `<h3 class="text-red-500 font-bold mb-2">🔴 ACIDOSIS CRÍTICA</h3><p class="font-bold text-white mb-1">El punto de estancamiento.</p><p>Tu sistema metabólico se encuentra saturado y bloqueado. Debido a la inflamación celular, el exceso de azúcares y la retención de toxinas, tu cuerpo está programado actualmente para almacenar grasa en lugar de quemarla. En este estado es normal experimentar fatiga constante, pesadez, niebla mental y ansiedad por la comida. Es una señal de alerta y el punto de quiebre donde inicia tu transformación.</p>`
             },
             2: {
                 title: "Fase 2: Reactivación Activa", badge: "FASE 2", badgeCls: "bg-[#52d669]/10 text-[#52d669]", txtCls: "text-[#52d669]",
                 ph: "7.32", phSt: "Equilibrio Tisular Estándar", o2: "95%", o2St: "Oxigenación en Proceso",
                 color: 0x52d669, radius: 1.1, spread: 0.12, glow: "shadow-glow-alkaline", border: "border-[#52d669]",
-                definition: "<strong>Definición:</strong> Etapa de transición metabólica lograda mediante pautas de limpieza tisular.<br><strong>Características:</strong> Las membranas celulares comienzan a recuperar su potencial eléctrico balanceado. Las micocélulas <strong>empiezan a separarse</strong>, reduciendo la fricción y permitiendo una circulación fluida de nutrientes."
+                definition: `<h3 class="text-yellow-500 font-bold mb-2">🟡 REACTIVACIÓN</h3><p class="font-bold text-white mb-1">El despertar metabólico.</p><p>Tu cuerpo entra en una fase de limpieza y adaptación profunda. Al reducir la carga tóxica, los niveles de insulina se estabilizan y tu organismo se ve obligado a cambiar de combustible: deja de depender del azúcar y comienza a oxidar la grasa acumulada para generar energía. Durante esta transición, la inflamación se desploma, tu digestión se optimiza y empiezas a sentir un aumento progresivo y sostenido en tu vitalidad física.</p>`
             },
             3: {
                 title: "Fase 3: Estado Óptimo LION", badge: "FASE 3", badgeCls: "bg-[#3897ff]/10 text-[#3897ff]", txtCls: "text-[#3897ff]",
                 ph: "7.45", phSt: "Ultra-fluidización Homeostática", o2: "99%", o2St: "Saturación Mitocondrial Máxima",
                 color: 0x3897ff, radius: 1.5, spread: 0.05, glow: "shadow-glow-lion", border: "border-[#3897ff]",
-                definition: "<strong>Definición:</strong> Máxima homeostasis tisular y alcalinidad bio-optimizada bajo el protocolo LION.<br><strong>Características:</strong> Máxima repelencia electromagnética natural. Las células se aprecian <strong>completamente esféricas, saludables, libres y expandidas en ultra-fluidez</strong>."
+                definition: `<h3 class="text-blue-500 font-bold mb-2">🔵 ESTADO LION</h3><p class="font-bold text-white mb-1">Optimización absoluta.</p><p>El nivel máximo de rendimiento de tu biología. Tu maquinaria celular ha sido reprogramada; ahora tu metabolismo es acelerado, eficiente y capaz de oxidar grasa incluso en estado de reposo. Disfrutas de energía inagotable, claridad mental impecable y una respuesta muscular superior ante el estímulo del entrenamiento. Has construido un entorno interno blindado, diseñado para la fuerza, la resistencia y el control total de tu cuerpo.</p>`
             }
         };
 
@@ -752,8 +692,7 @@
         function resizeCanvas() {
             const container = document.getElementById('cell-3d-canvas');
             if (!container || !camera || !renderer) return;
-            const w = container.clientWidth;
-            const h = container.clientHeight;
+            const w = container.clientWidth; const h = container.clientHeight;
             if (w > 0 && h > 0) {
                 camera.aspect = w / h;
                 camera.updateProjectionMatrix();
@@ -762,47 +701,29 @@
         }
 
         function updateState(st) {
-            const state = parseInt(st);
-            const d = estados[state];
-
+            const state = parseInt(st); const d = estados[state];
             document.getElementById('phase-title').innerText = d.title;
             document.getElementById('phase-title').className = `text-xs font-bold transition-all ${d.txtCls}`;
             document.getElementById('phase-badge').innerText = d.badge;
             document.getElementById('phase-badge').className = `px-2 py-0.5 rounded text-[9px] font-bold ${d.badgeCls}`;
-            
             document.getElementById('ph-value').innerText = d.ph;
             document.getElementById('ph-value').className = `text-xl font-bold tracking-tight ${d.txtCls}`;
             document.getElementById('ph-status').innerText = d.phSt;
-            
             document.getElementById('o2-value').innerText = d.o2;
             document.getElementById('o2-value').className = `text-xl font-bold tracking-tight ${d.txtCls}`;
             document.getElementById('o2-status').innerText = d.o2St;
-
             document.getElementById('state-definition-text').innerHTML = d.definition;
             document.getElementById('state-definition-container').className = `p-4 rounded-2xl bg-gray-950/60 border transition-all duration-300 ${d.border}`;
-
             wrapper.className = `relative w-full h-80 bg-gradient-to-b from-gray-950 to-black rounded-3xl border transition-all duration-500 ${d.glow} ${d.border}`;
-
-            targetColor.setHex(d.color);
-            currentTargetRadius = d.radius;
-            currentSpread = d.spread;
+            targetColor.setHex(d.color); currentTargetRadius = d.radius; currentSpread = d.spread;
         }
 
         document.getElementById('biomarker-slider').addEventListener('input', (e) => updateState(e.target.value));
-        
-        function setSlider(v) {
-            document.getElementById('biomarker-slider').value = v;
-            updateState(v);
-        }
+        function setSlider(v) { document.getElementById('biomarker-slider').value = v; updateState(v); }
 
-        // Ejecución Segura en Carga de Documento
         document.addEventListener("DOMContentLoaded", () => {
-            setupUI();
-            init3DCell();
-            setTimeout(() => {
-                updateState(3);
-                resizeCanvas();
-            }, 100);
+            setupUI(); init3DCell();
+            setTimeout(() => { updateState(3); resizeCanvas(); }, 100);
         });
     </script>
 </body>
