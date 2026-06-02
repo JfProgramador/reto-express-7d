@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -45,7 +45,7 @@
             <div class="w-3 h-3 rounded-full bg-[#3897ff] animate-pulse"></div>
             <h1 class="text-lg font-bold tracking-wider text-white">LION <span class="text-[#3897ff]">3D PRO</span></h1>
         </div>
-        <span class="text-xs bg-gray-900 border border-gray-800 px-3 py-1 rounded-full text-gray-400 font-semibold tracking-wide">GIRO EXPRESS 7D</span>
+        <span class="text-xs bg-gray-900 border border-gray-800 px-3 py-1 rounded-full text-gray-400 font-semibold tracking-wide">RETO EXPRESS 7D</span>
     </header>
 
     <main class="flex-1 p-5 overflow-y-auto pb-24">
@@ -115,10 +115,14 @@
 
         <section id="recetario" class="tab-content space-y-6">
             <div>
-                <h2 class="text-xl font-bold mb-1">Protocolo Gastronómico</h2>
-                <p class="text-xs text-gray-500">10 recetas de alta absorción diseñadas para el reseteo metabólico.</p>
+                <h2 class="text-xl font-bold mb-1">Horario de Protocolos Sugeridos</h2>
+                <p class="text-xs text-gray-500">Secuencia crononutricional obligatoria para la restauración celular.</p>
             </div>
-            <div class="space-y-2" id="recipes-container"></div>
+            <div class="space-y-3" id="protocolos-timeline-container"></div>
+            <div class="pt-4 border-t border-gray-900">
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Soporte Gastronómico Complementario</h3>
+                <div class="space-y-2" id="recipes-container"></div>
+            </div>
         </section>
 
         <section id="menu-semanal" class="tab-content space-y-6">
@@ -129,37 +133,92 @@
             <div class="space-y-3" id="days-container"></div>
         </section>
 
+        <section id="entrenamiento" class="tab-content space-y-6">
+            <div class="flex justify-between items-center border-b border-gray-900 pb-3">
+                <div>
+                    <span class="text-[9px] bg-[#52d669]/10 text-[#52d669] border border-[#52d669]/20 px-2 py-0.5 rounded font-bold tracking-wider">MÓDULO FÍSICO</span>
+                    <h2 class="text-xl font-bold text-white mt-1">LION WORKOUT</h2>
+                </div>
+                <i class="fa-solid fa-dumbbell text-xl text-gray-700"></i>
+            </div>
+
+            <div class="grid grid-cols-2 p-1 bg-gray-950 border border-gray-900 rounded-xl">
+                <button onclick="changeRoutine('A')" id="btn-routine-A" class="py-2.5 rounded-lg text-xs font-bold transition-all text-white bg-gray-900 border border-gray-800 shadow-sm">
+                    RUTINA A: FUERZA
+                </button>
+                <button onclick="changeRoutine('B')" id="btn-routine-B" class="py-2.5 rounded-lg text-xs font-bold transition-all text-gray-500 hover:text-gray-300">
+                    RUTINA B: CARDIO
+                </button>
+            </div>
+
+            <div class="w-full">
+                <img id="rutina-img" src="fuerza.JPG" class="w-full h-auto rounded-xl border border-gray-800 shadow-md object-contain bg-gray-950" alt="Infografía de Rutina">
+            </div>
+
+            <div class="bg-gradient-to-br from-gray-950 to-black border border-gray-900 p-4 rounded-2xl flex flex-col items-center justify-center relative shadow-lg">
+                <div class="absolute top-2 left-3 text-[8px] text-gray-500 font-bold uppercase tracking-widest">
+                    <i class="fa-solid fa-stopwatch text-[#3897ff] mr-1"></i> Cronómetro
+                </div>
+                <div id="timer-display" class="text-3xl font-bold tracking-widest text-white my-3">00:00</div>
+                <div class="flex gap-4">
+                    <button onclick="toggleTimer()" id="btn-timer-play" class="w-8 h-8 rounded-full bg-gray-900 border border-gray-800 text-xs flex items-center justify-center text-gray-300 hover:text-white transition">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                    <button onclick="resetTimer()" class="w-8 h-8 rounded-full bg-gray-900 border border-gray-800 text-xs flex items-center justify-center text-gray-500 hover:text-gray-300 transition">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="anatomy-focus-box" class="p-3 rounded-xl bg-gray-950/40 border border-gray-900/60 flex items-center justify-between transition-all duration-300 border-l-2 border-l-[#52d669]">
+                <div class="space-y-0.5">
+                    <p class="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Enfoque de Sesión</p>
+                    <h4 id="anatomy-title" class="text-xs font-bold text-white">Fuerza-Resistencia Corporal Completa</h4>
+                </div>
+                <div id="anatomy-indicators" class="flex gap-1.5 text-[10px] font-bold">
+                    <span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">CORE</span>
+                    <span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">TREN INFERIOR</span>
+                </div>
+            </div>
+
+            <div id="workout-list-container" class="space-y-2"></div>
+        </section>
+
     </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-black/90 backdrop-blur-lg border-t border-gray-900 p-2 flex justify-around items-center z-50">
-        <button onclick="switchTab('biometria')" class="tab-btn flex flex-col items-center gap-1 p-2 text-[#3897ff]" data-tab="biometria">
-            <i class="fa-solid fa-chart-simple text-base"></i>
-            <span class="text-[9px] font-bold tracking-wider">BIOMETRÍA</span>
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-black/95 backdrop-blur-lg border-t border-gray-900 p-2 flex justify-between px-4 items-center z-50">
+        <button onclick="switchTab('biometria')" class="tab-btn flex flex-col items-center gap-1 p-1.5 text-[#3897ff]" data-tab="biometria">
+            <i class="fa-solid fa-chart-simple text-[15px]"></i>
+            <span class="text-[8px] font-bold tracking-wider">BIO</span>
         </button>
-        <button onclick="switchTab('despensa')" class="tab-btn flex flex-col items-center gap-1 p-2 text-gray-500" data-tab="despensa">
-            <i class="fa-solid fa-basket-shopping text-base"></i>
-            <span class="text-[9px] font-bold tracking-wider">DESPENSA</span>
+        <button onclick="switchTab('despensa')" class="tab-btn flex flex-col items-center gap-1 p-1.5 text-gray-500" data-tab="despensa">
+            <i class="fa-solid fa-basket-shopping text-[15px]"></i>
+            <span class="text-[8px] font-bold tracking-wider">DESPENSA</span>
         </button>
-        <button onclick="switchTab('recetario')" class="tab-btn flex flex-col items-center gap-1 p-2 text-gray-500" data-tab="recetario">
-            <i class="fa-solid fa-receipt text-base"></i>
-            <span class="text-[9px] font-bold tracking-wider">RECETARIO</span>
+        <button onclick="switchTab('recetario')" class="tab-btn flex flex-col items-center gap-1 p-1.5 text-gray-500" data-tab="recetario">
+            <i class="fa-solid fa-clock text-[15px]"></i>
+            <span class="text-[8px] font-bold tracking-wider">HORARIOS</span>
         </button>
-        <button onclick="switchTab('menu-semanal')" class="tab-btn flex flex-col items-center gap-1 p-2 text-gray-500" data-tab="menu-semanal">
-            <i class="fa-solid fa-calendar-days text-base"></i>
-            <span class="text-[9px] font-bold tracking-wider">7D CRONO</span>
+        <button onclick="switchTab('menu-semanal')" class="tab-btn flex flex-col items-center gap-1 p-1.5 text-gray-500" data-tab="menu-semanal">
+            <i class="fa-solid fa-calendar-days text-[15px]"></i>
+            <span class="text-[8px] font-bold tracking-wider">MENÚ</span>
+        </button>
+        <button onclick="switchTab('entrenamiento')" class="tab-btn flex flex-col items-center gap-1 p-1.5 text-gray-500" data-tab="entrenamiento">
+            <i class="fa-solid fa-dumbbell text-[15px]"></i>
+            <span class="text-[8px] font-bold tracking-wider">ENTRENO</span>
         </button>
     </nav>
 
     <script>
-        // --- DATA DE LA MINI APP ---
+        // --- DATA CENTRAL DE LA MINI APP ---
         const accionesCriticas = [
-            { t: "1. Shot de Despertar", d: "Agua de alta pureza con limón médico y sal de mar gris en ayunas." },
-            { t: "2. Oxigenación Consciente", d: "Bloque de respiración profunda diafragmática para alcalinizar tejidos." },
-            { t: "3. Hidratación Inteligente", d: "Consumo mínimo de 3 litros de agua limpia a lo largo de la jornada." },
-            { t: "4. Estímulo Neuromuscular", d: "Activación muscular planificada para maximizar receptores metabólicos." },
-            { t: "5. Infusión Terapéutica PM", d: "Protocolo de tarde: infusión dorada desinflamatoria o reset de hidratación." },
-            { t: "6. Disciplina Nutricional Corta", d: "Respetar estrictamente los componentes limpios y bloques alimentarios." },
-            { t: "7. Higiene de Luz Celular", d: "Cero pantallas antes del descanso para optimizar la reparación mitocondrial." }
+            { t: "1. Hidratación de Alto Flujo Estricta", d: "Consumir un mínimo de 3 litros de agua purificada diariamente de forma obligatoria." },
+            { t: "2. Cero Tolerancia a Agresores Inflamatorios", d: "Eliminar por completo harinas refinadas, azúcares procesados, edulcorantes artificiales (incluso los de '0 calorías'), lácteos de todo tipo y aceites vegetales refinados." },
+            { t: "3. Respeto al Orden Crononutricional", d: "Ingerir el Paso 1 al despertar en ayunas, esperar 20 minutos para el Paso 2, y postergar al menos 2 horas los alimentos sólidos del Paso 3." },
+            { t: "4. Integridad Mecánica de la Fibra", d: "Consumir el gel de semillas (Paso 1) y el jugo verde (Paso 2) sin colar. La textura viscosa y grumos hacen el efecto 'escoba'." },
+            { t: "5. Ventana Mínima de Ayuno Fisiológico", d: "Mantener un periodo de ayuno nocturno de al menos 12 horas consecutivas (ej. 6:30 PM a 6:30 AM) para inducir autofagia." },
+            { t: "6. Gestión de la Crisis de Profilaxis", d: "Comprender los síntomas de desintoxicación. Incrementa el agua y tés herbales, nunca uses analgésicos químicos o azúcares." },
+            { t: "7. Optimización del Descanso y Regeneration", d: "Asegurar entre 7 y 8 horas de sueño de alta calidad nocturna, desconectando pantallas 30 minutos antes de acostarte." }
         ];
 
         const listaMercado = [
@@ -169,10 +228,10 @@
                     { n: "Pollo de pastoreo libre", i: "Pavo orgánico fileteado" },
                     { n: "Pescado blanco (Calabaza/Mero)", i: "Trucha de río o lubina" },
                     { n: "Salmón silvestre", i: "Sardinas limpias en agua mineral" },
-                    { n: "Claras de huevo de campo", i: "Huevos enteros de pastoreo (Días 6-7)" },
-                    { n: "PDM + F1 (Nutrición Celular)", i: "Proteína limpia aislada de alta absorción" },
-                    { n: "Muslos de pollo sin piel", i: "Contramuslos magros seleccionados" },
-                    { n: "Carne molida sin grasa", i: "Lomo fino de res limpio seleccionado" } // Ajuste solicitado aplicado aquí
+                    { n: "Claras de huevo de campo", i: "Huevos enteros de pastoreo" },
+                    { n: "PDM + F1 (Nutrición Celular)", i: "Proteína limpia aislada" },
+                    { n: "Muslos de pollo sin piel", i: "Contramuslos magros" },
+                    { n: "Carne molida sin grasa", i: "Lomo fino de res limpio" }
                 ], color: "text-[#3897ff]"
             },
             {
@@ -180,96 +239,131 @@
                 items: [
                     { n: "Aguacate Hass maduro", i: "Aceite de aguacate extra virgen" },
                     { n: "Aceite de coco MCT", i: "Manteca de cacao cruda" },
-                    { n: "Aceite de oliva extra virgen", i: "Aceite de linaza prensado en frío" },
-                    { n: "Yogurt griego natural (Alto en grasa)", i: "Kéfir de leche entera tradicional" },
-                    { n: "Nueces de nogal (5 unidades)", i: "Almendras crudas fileteadas o macadamias" },
-                    { n: "Ghee clarificado", i: "Mantequilla artesanal de libre pastoreo" },
-                    { n: "Semillas de chía densas", i: "Semillas de cáñamo descascaradas" }
+                    { n: "Aceite de oliva extra virgen", i: "Aceite de linaza" },
+                    { n: "Yogurt griego natural", i: "Kéfir de leche entera" },
+                    { n: "Nueces de nogal (5 uni)", i: "Almendras crudas fileteadas" },
+                    { n: "Ghee clarificado", i: "Mantequilla artesanal" },
+                    { n: "Semillas de chía densas", i: "Semillas de cáñamo" }
                 ], color: "text-[#52d669]"
             },
             {
-                grupo: "Carbohidratos Alcalinos (Mínimo 7)",
+                grupo: "Carbohidratos Integrales (Mínimo 7)",
                 items: [
-                    { n: "Espinaca baby fresca", i: "Acelga suiza o berros de agua" },
-                    { n: "Tomate de ensalada", i: "Pimentón rojo asado sin piel" },
-                    { n: "Cebolla blanca o morada", i: "Puerro o cebollín finamente picado" },
-                    { n: "Calabaza fresca", i: "Zucchini verde o zapallo tierno" },
-                    { n: "Brócoli o Coliflor", i: "Espárragos trigueros cortados" },
-                    { n: "Limón médico / Lima real", i: "Vinagre de sidra de manzana madre" },
-                    { n: "Kale o col rizada", i: "Hojas de mostaza o rúgula silvestre" }
+                    { n: "Avena integral en hojuelas", i: "Harina de avena entera" },
+                    { n: "Papa sabanera al horno", i: "Papa pastusa al vapor" },
+                    { n: "Arroz blanco medido", i: "Arroz integral largo" },
+                    { n: "Camote o batata dulce", i: "Yuca cocida sin hilos" },
+                    { n: "Quinoa real lavada", i: "Amaranto orgánico inflado" },
+                    { n: "Plátano verde o maduro", i: "Calabaza o auyama horneada" },
+                    { n: "Frutos rojos (Fresas)", i: "Manzana verde / Kiwi" }
+                ], color: "text-amber-400"
+            },
+            {
+                grupo: "Alimentos Alcalinizantes",
+                items: [
+                    { n: "Semillas de Linaza", i: "Aporte mucílago y omega" },
+                    { n: "Gelatina sin sabor", i: "Aminoácidos para mucosa" },
+                    { n: "Espinacas frescas", i: "Clorofila y oxigenación" },
+                    { n: "Apio silvestre", i: "Sodio biológico" },
+                    { n: "Té Verde premium", i: "Activación metabólica" },
+                    { n: "Cúrcuma orgánica", i: "Bloqueo inflamatorio" },
+                    { n: "Cacao amargo puro", i: "Magnesio biodisponible" }
                 ], color: "text-purple-400"
             }
         ];
 
+        const horariosProtocolos = [
+            { h: "06:00 AM", p: "Paso 1: Limpia y Cicatriza", m: "Gel de Linaza/Chía + Gelatina sin sabor (en ayunas)", f: "Recubrimiento gástrico, modulación del pH y reparación de la mucosa intestinal." },
+            { h: "06:20 AM", p: "Paso 2: Oxigena y Biorregula", m: "Jugo Verde de alta densidad (Espinaca, Apio, Limón)", f: "Vasodilatación periférica, neutralización de radicales libres y barrido de colon." },
+            { h: "08:30 AM", p: "Paso 3: Nutre y Regenera", m: "Batido Nutricional de Avena y Frutos Rojos + Huevos", f: "Aporte de los 114 nutrientes basales y activación de la síntesis proteica." },
+            { h: "01:30 PM", p: "Almuerzo Biocompatible", m: "Proteína limpia + Ensalada Arcoíris + Grasas", f: "Sostenimiento del balance de nitrógeno y aporte multivitamínico denso." },
+            { h: "06:30 PM", p: "Cena de Cierre", m: "Proteína magra + Vegetales verdes cocidos al vapor", f: "Reparación celular nocturna sin picos de insulina. Inicio de ventana de ayuno." }
+        ];
+
         const recetas = [
-            { t: "1. Revuelto de Claras con Tomate y Cebolla", m: "Proteínas: 24g | Grasas: 2g | Carbohidratos: 4g", p: "Cocinar 5 claras de huevo con tomate y cebolla picada en un sartén antiadherente con un spray mínimo de aceite de oliva." },
-            { t: "2. Batido Nutricional PDM + F1", m: "Proteínas: 24g | Grasas: 2.5g | Carbohidratos: 10g", p: "Licuar 2 scoops de F1 y 1 o 2 scoops de PDM en agua helada purificada. Consumir de inmediato para nutrición tisular completa." },
-            { t: "3. Pescado Blanco al vapor con Calabaza", m: "Proteínas: 28g | Grasas: 3g | Carbohidratos: 8g", p: "Filete de pescado blanco sazonado con sal marina, cocinado al vapor sobre rodajas de calabaza tierna." },
-            { t: "4. Pollo Mechado en Especias Nobles", m: "Proteínas: 30g | Grasas: 4g | Carbohidratos: 1g", p: "Pechuga de pollo desmechada cocinada en su propio jugo con pizca de comino, ajo y cilantro fresco." },
-            { t: "5. Muslos de Pollo con Pico de Gallo", m: "Proteínas: 26g | Grasas: 9g | Carbohidratos: 3g", p: "Muslos de pollo horneados sin piel, servidos con tomate, cebolla y limón médico picados en cubos finos." },
-            { t: "6. Huevos Enteros con Espinaca", m: "Proteínas: 18g | Grasas: 14g | Carbohidratos: 2g", p: "Sartenear dos huevos enteros de campo con una taza densa de espinaca baby y un toque de sal marina gris." },
-            { t: "7. Pollo a la Plancha con Arroz y Ensalada Verde", m: "Proteínas: 32g | Grasas: 5g | Carbohidratos: 22g", p: "Filete de pechuga a la plancha, acompañado de una porción medida de arroz blanco y mix de hojas verdes." },
-            { t: "8. Pescado Blanco al grill con Vegetales Calientes", m: "Proteínas: 28g | Grasas: 4g | Carbohidratos: 6g", p: "Pescado blanco al grill sobre una cama de brócoli, zucchini y espárragos salteados ligeramente." },
-            { t: "9. Tortilla Aligerada con Aguacate", m: "Proteínas: 16g | Grasas: 18g | Carbohidratos: 4g", p: "Preparar una tortilla fina de huevos, rellenar con un cuarto de aguacate Hass machacado con limón." },
-            { t: "10. Postre Saludable Cacao & Yogurt LION", m: "Proteínas: 15g | Grasas: 12g | Carbohidratos: 8g", p: "Mezclar yogurt griego natural con una cucharadita de cacao natural sin azúcar y 5 nueces de nogal trituradas." }
+            { t: "1. Revuelto de Claras con Tomate y Cebolla", m: "Pro: 24g | Gra: 2g | Car: 4g", p: "Cocinar 5 claras con tomate y cebolla en sartén antiadherente con spray mínimo de aceite." },
+            { t: "2. Batido Nutricional PDM + F1", m: "Pro: 24g | Gra: 2.5g | Car: 10g", p: "Licuar 2 scoops de F1 y 1 o 2 de PDM en agua helada. Consumir de inmediato." },
+            { t: "3. Pescado Blanco al vapor con Calabaza", m: "Pro: 28g | Gra: 3g | Car: 8g", p: "Filete sazonado con sal marina, al vapor sobre rodajas de calabaza tierna." },
+            { t: "4. Pollo Mechado en Especias", m: "Pro: 30g | Gra: 4g | Car: 1g", p: "Pechuga desmechada cocinada en su jugo con comino, ajo y cilantro fresco." },
+            { t: "5. Huevos Enteros con Espinaca", m: "Pro: 18g | Gra: 14g | Car: 2g", p: "Sartenear dos huevos enteros con una taza densa de espinaca y sal marina gris." }
         ];
 
         const menusGiroExpress = [
             {
                 fase: "DÍAS 1, 2 Y 3: NO CARBOHIDRATOS",
-                obj: "Reducir la inflamación inicial, vaciar reservas de glucógeno y activar el uso de grasa como fuente de energía. Eliminamos por completo los carbohidratos para darle un reinicio al cuerpo.",
-                pautas: ["Realizar 4-5 comidas pequeñas distribuidas a lo largo del día.", "Consumir ÚNICAMENTE proteínas limpias y vegetales.", "Beber 3 litros de agua como parte fundamental del proceso depurativo."],
+                obj: "Reducir inflamación inicial, vaciar glucógeno y activar uso de grasa.",
+                pautas: ["Realizar 4-5 comidas pequeñas.", "ÚNICAMENTE proteínas limpias y vegetales.", "3 litros de agua diarios obligatorios."],
                 comidas: [
-                    { n: "Comida 1 (Desayuno)", d: "Claras de huevo con tomate y cebolla." },
-                    { n: "Comida 2 (Media Mañana)", d: "Nutrición Celular (PDM + F1) o pollo mechado." },
-                    { n: "Comida 3 (Almuerzo)", d: "Pescado blanco con calabaza." },
-                    { n: "Comida 4 (Media Tarde - Snack)", d: "Claras de huevo o pollo mechado." },
-                    { n: "Comida 5 (Cena)", d: "Muslos de pollo con pico de gallo." },
-                    { n: "Comida 6 (Opcional Nocturna)", d: "Nutrición Celular (PDM + F1) o claras de huevo." }
+                    { n: "Comida 1", d: "Claras de huevo con tomate y cebolla." },
+                    { n: "Comida 2", d: "Nutrición Celular (PDM + F1) o pollo mechado." },
+                    { n: "Comida 3", d: "Pescado blanco con calabaza." },
+                    { n: "Comida 4", d: "Claras de huevo o pollo mechado." },
+                    { n: "Comida 5", d: "Muslos de pollo con pico de gallo." }
                 ],
                 footer: "Recuerda consumir 3 litros de agua por día."
             },
             {
-                fase: "DÍAS 4 Y 5: PROTOCOLO DE RECARGA INTELIGENTE",
-                obj: "Eliminamos carbohidratos en comidas principales para vaciar glucógeno pero cerramos con un postre saludable estratégico. Envía una señal de seguridad al cuerpo, evita el estrés metabólico y previene el rebote.",
-                pautas: ["Carbohidrato solo en la comida 1 (Día 5) o postre en comida 4 (Día 4).", "Proteína y vegetales en las comidas siguientes.", "Hidratación alta obligatoria: 3 litros de agua.", "5-6 comidas pequeñas para mantener el metabolismo activo."],
+                fase: "DÍAS 4 Y 5: PROTOCOLO DE RECARGA",
+                obj: "Envía señal de seguridad al cuerpo, evita estrés metabólico y previene rebote.",
+                pautas: ["Carbohidrato solo en la comida 1 (Día 5) o postre en comida 4 (Día 4).", "Hidratación alta obligatoria."],
                 comidas: [
-                    { n: "Comida 1 (Desayuno)", d: "Tortilla de huevos con aguacate (Día 4) o Con Papa al Horno (Día 5)." },
-                    { n: "Comida 2 (Media Mañana)", d: "Nutrición Celular (PDM + F1) o carne molida sin grasa." },
-                    { n: "Comida 3 (Almuerzo)", d: "Pollo a la plancha con pico de gallo." },
-                    { n: "Comida 4 (Media Tarde - Snack)", d: "CACAO NATURAL CON YOGURT GRIEGO natural + 5 nueces." },
-                    { n: "Comida 5 (Cena)", d: "Pescado blanco al grill con vegetales calientes." },
-                    { n: "Comida 6 (Opcional Nocturna)", d: "Nutrición Celular (PDM + F1) o 3 claras de huevo." }
+                    { n: "Comida 1", d: "Tortilla con aguacate (Día 4) o Papa (Día 5)." },
+                    { n: "Comida 2", d: "Nutrición Celular o carne molida sin grasa." },
+                    { n: "Comida 3", d: "Pollo a la plancha con pico de gallo." },
+                    { n: "Comida 4", d: "CACAO NATURAL CON YOGURT + nueces." },
+                    { n: "Comida 5", d: "Pescado blanco al grill con vegetales." }
                 ],
-                footer: "Menos inflamación, mejor digestión y control de antojos absoluto."
+                footer: "Menos inflamación, mejor digestión y control de antojos."
             },
             {
-                fase: "DÍAS 6 Y 7: ESTABILIZACIÓN Y ULTRA-FLUIDEZ",
-                obj: "Consolidar el equilibrio homeostático tisular. Estabilizar el pH optimizado e integrar grasas energéticas y proteínas magras de forma simétrica para cerrar el ciclo de desinflamación.",
-                pautas: ["Huevos enteros permitted con aporte de grasas saludables.", "Inclusión moderada de carbohidratos complejos limpios al almuerzo.", "Sostener el bloque de hidratación celular estricta."],
+                fase: "DÍAS 6 Y 7: ESTABILIZACIÓN LION",
+                obj: "Consolidar equilibrio homeostático e integrar grasas y proteínas magras.",
+                pautas: ["Huevos enteros permitidos.", "Inclusión moderada de carbohidratos complejos al almuerzo."],
                 comidas: [
-                    { n: "Comida 1 (Desayuno)", d: "Huevos enteros con espinaca y cebolla." },
-                    { n: "Comida 2 (Media Mañana)", d: "Nutrición Celular (PDM + F1) + agua purificada." },
-                    { n: "Comida 3 (Almuerzo)", d: "Pollo a la plancha con arroz blanco medido y ensalada verde." },
-                    { n: "Comida 4 (Media Tarde - Snack)", d: "Claras de huevo o un puñado selecto de almendras crudas." },
-                    { n: "Comida 5 (Cena)", d: "Pescado blanco con vegetales al vapor." },
-                    { n: "Comida 6 (Opcional Nocturna)", d: "Nutrición Celular (PDM + F1) o claras de huevo." }
+                    { n: "Comida 1", d: "Huevos enteros con espinaca y cebolla." },
+                    { n: "Comida 2", d: "Nutrición Celular (PDM + F1) + agua." },
+                    { n: "Comida 3", d: "Pollo a la plancha con arroz blanco y ensalada." },
+                    { n: "Comida 4", d: "Claras de huevo o almendras crudas." },
+                    { n: "Comida 5", d: "Pescado blanco con vegetales al vapor." }
                 ],
-                footer: "Cierre estratégico y lleno de intención. Fin del bloque de adaptación 7D."
+                footer: "Cierre estratégico. Fin del bloque 7D."
             }
         ];
 
+        // --- DATA DE RUTINAS ---
+        const rutinaA = [
+            { n: "1. Bodyweight Squats", s: "4 Series", r: "15-20 Reps", m: "Cuádriceps, Glúteos", t: "Pies al ancho de hombros. Baja cadera rompiendo el paralelo, pecho erguido.", p: "Evita levantar talones." },
+            { n: "2. Incline Push-Ups", s: "4 Series", r: "10-12 Reps", m: "Pectoral, Tríceps", t: "Manos en superficie elevada. Cuerpo en línea recta perfecta, desciende pecho.", p: "No dejes caer la cadera." },
+            { n: "3. Plank Jump-Ins", s: "3 Series", r: "30-45 Seg", m: "Core, Estabilizadores", t: "Plancha alta. Salto llevando pies a manos y regresa a plancha.", p: "Amortigua con puntas de pies." },
+            { n: "4. Knee Pull-Ins", s: "3 Series", r: "12-15 Reps", m: "Abdomen Inferior", t: "Sentado, inclina torso atrás. Extiende y recoge rodillas al pecho.", p: "Movimiento controlado, sin inercia." },
+            { n: "5. Cross Crunches", s: "3 Series", r: "15 por lado", m: "Oblicuos", t: "Boca arriba, eleva torso rotando para conectar codo con rodilla opuesta.", p: "La fuerza nace del abdomen, no del cuello." },
+            { n: "6. Leg Raises", s: "3 Series", r: "12-15 Reps", m: "Abdomen profundo", t: "Boca arriba. Eleva piernas a 90 grados y desciende sin tocar el suelo.", p: "Manos bajo glúteos para proteger lumbar." },
+            { n: "7. Superman Holds", s: "3 Series", r: "20-30 Seg", m: "Erectores, Lumbar", t: "Boca abajo. Eleva pecho y muslos simultáneamente.", p: "Mirada al suelo para proteger cervicales." },
+            { n: "8. Wall Sit Hold", s: "3 Series", r: "30-45 Seg", m: "Cuádriceps", t: "Espalda a la pared, baja cadera a 90 grados. Mantén postura.", p: "Talones firmes bajo las rodillas." },
+            { n: "9. Calf Raises", s: "3 Series", r: "20-25 Reps", m: "Pantorrillas", t: "Elévate sobre puntas de pies, pausa arriba y desciende.", p: "Rango completo sin rebotar." }
+        ];
+
+        const rutinaB = [
+            { n: "1. Burpees", s: "4 Circuitos", r: "8-10 Reps", m: "Potencia, Cardio", t: "Cuclillas, plancha alta, flexión, regresa pies, salto vertical explosivo.", p: "Prioriza fluidez sobre velocidad." },
+            { n: "2. Shoulder Taps", s: "4 Circuitos", r: "20 Reps", m: "Core, Hombros", t: "Plancha alta. Toca hombro opuesto alternadamente.", p: "Evita balancear las caderas." },
+            { n: "3. Kneeling Pushups", s: "4 Circuitos", r: "10-12 Reps", m: "Pectoral, Tríceps", t: "Apoya rodillas. Cadera al frente, desciende pecho controladamente.", p: "Codos en diagonal (45 grados)." },
+            { n: "4. Flutter Kicks", s: "3 Circuitos", r: "30-45 Seg", m: "Abdomen Inferior", t: "Boca arriba. Pataleo vertical corto y continuo.", p: "Lumbar siempre pegada al suelo." },
+            { n: "5. Jumping Jacks", s: "4 Circuitos", r: "45 Seg", m: "Cardio Alta Intensidad", t: "Salto abriendo piernas y llevando manos sobre la cabeza.", p: "Amortigua cayendo sobre puntas." },
+            { n: "6. Mountain Climbers", s: "4 Circuitos", r: "30-45 Seg", m: "Core, Cardio", t: "Plancha alta. Rodillas al pecho alternadas a alta velocidad.", p: "Cadera baja, no hagas pirámide." }
+        ];
+
+        // --- FUNCIONES UI ENTORNO ---
         function setupUI() {
             // Checklists
             const chkCont = document.getElementById('checklist-container');
             chkCont.innerHTML = "";
             accionesCriticas.forEach(a => {
                 chkCont.innerHTML += `
-                    <label class="flex items-center gap-3 p-3 bg-gray-950/50 border border-gray-900 rounded-xl cursor-pointer hover:bg-gray-900/40 transition">
-                        <input type="checkbox" onchange="updateProgress()" class="chk-item w-4 h-4 rounded accent-[#3897ff] bg-gray-900 border-gray-700">
+                    <label class="flex items-start gap-3 p-3 bg-gray-950/50 border border-gray-900 rounded-xl cursor-pointer hover:bg-gray-900/40 transition">
+                        <input type="checkbox" onchange="updateProgress()" class="chk-item mt-0.5 w-4 h-4 rounded accent-[#3897ff] bg-gray-900 border-gray-700 shrink-0">
                         <div class="text-xs">
                             <p class="font-semibold text-white">${a.t}</p>
-                            <p class="text-[10px] text-gray-500">${a.d}</p>
+                            <p class="text-[10px] text-gray-500 leading-normal mt-0.5">${a.d}</p>
                         </div>
                     </label>
                 `;
@@ -293,18 +387,37 @@
                 `;
             });
 
+            // Horarios sugeridos
+            const prtCont = document.getElementById('protocolos-timeline-container');
+            prtCont.innerHTML = "";
+            horariosProtocolos.forEach(p => {
+                prtCont.innerHTML += `
+                    <div class="flex gap-3 bg-gray-950/40 border border-gray-900 p-3.5 rounded-xl">
+                        <div class="flex flex-col items-center justify-center bg-gray-900 border border-gray-800 px-2 py-1 rounded-lg shrink-0 h-fit text-center min-w-[70px]">
+                            <i class="fa-regular fa-clock text-[10px] text-[#3897ff] mb-0.5"></i>
+                            <span class="text-[10px] font-bold text-white tracking-tighter">${p.h}</span>
+                        </div>
+                        <div class="text-xs space-y-0.5">
+                            <h4 class="font-bold text-[#52d669] tracking-wide">${p.p}</h4>
+                            <p class="text-white font-medium text-[11px]">${p.m}</p>
+                            <p class="text-[10px] text-gray-500 font-light leading-relaxed pt-0.5">${p.f}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
             // Recetas
             const rcpCont = document.getElementById('recipes-container');
             rcpCont.innerHTML = "";
             recetas.forEach(r => {
                 rcpCont.innerHTML += `
-                    <div class="border border-gray-900 rounded-xl bg-gray-950/40 overflow-hidden">
-                        <button class="w-full p-3.5 text-left flex justify-between items-center font-semibold text-xs text-white" onclick="toggleAccordion(this)">
-                            <span><i class="fa-solid fa-mortar-pestle text-[#3897ff] mr-2"></i>${r.t}</span>
+                    <div class="border border-gray-900 rounded-xl bg-gray-950/20 overflow-hidden">
+                        <button class="w-full p-3 text-left flex justify-between items-center font-semibold text-xs text-white" onclick="toggleAccordion(this)">
+                            <span><i class="fa-solid fa-mortar-pestle text-purple-400 mr-2"></i>${r.t}</span>
                             <i class="fa-solid fa-chevron-down text-gray-600 transition-transform"></i>
                         </button>
                         <div class="hidden p-4 pt-0 text-xs text-gray-400 border-t border-gray-900/60 space-y-2 bg-black/20">
-                            <p class="text-[10px] font-bold text-[#52d669]">${r.m}</p>
+                            <p class="text-[10px] font-bold text-[#3897ff]">${r.m}</p>
                             <p class="text-gray-300 leading-relaxed"><strong>Preparación:</strong> ${r.p}</p>
                         </div>
                     </div>
@@ -355,6 +468,8 @@
                     </div>
                 `;
             });
+            
+            renderWorkout('A');
         }
 
         function updateProgress() {
@@ -363,6 +478,7 @@
             document.getElementById('checklist-progress').innerText = `${checked}/${total}`;
         }
 
+        // Sistema de acordeones base
         function toggleAccordion(element) {
             const body = element.nextElementSibling;
             const icon = element.querySelector('i.fa-chevron-down, i.fa-chevron-up');
@@ -388,7 +504,99 @@
             }
         }
 
-        // --- SISTEMA INTERACTIVO DE TEJIDO DE PARTÍCULAS MOLECULARES (CÉLULAS AGLUTINADAS VS FLUIDAS) ---
+        // --- LÓGICA DE ENTRENAMIENTO ---
+        function renderWorkout(type) {
+            const container = document.getElementById('workout-list-container');
+            container.innerHTML = "";
+            const list = type === 'A' ? rutinaA : rutinaB;
+            const accentColor = type === 'A' ? 'text-[#52d669]' : 'text-purple-400';
+            const iconBadge = type === 'A' ? 'fa-solid fa-dumbbell' : 'fa-solid fa-bolt';
+
+            list.forEach((ex) => {
+                container.innerHTML += `
+                    <div class="border border-gray-900 rounded-xl bg-gray-950/20 overflow-hidden">
+                        <button class="w-full p-3.5 text-left flex justify-between items-center font-semibold text-xs text-white" onclick="toggleAccordion(this)">
+                            <div class="space-y-1">
+                                <span class="block text-white font-bold tracking-wide"><i class="${iconBadge} ${accentColor} mr-2"></i>${ex.n}</span>
+                                <div class="flex gap-2 text-[10px] text-gray-500 font-medium">
+                                    <span>${ex.s}</span>
+                                    <span>•</span>
+                                    <span class="text-gray-400 font-semibold">${ex.r}</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-gray-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden p-4 pt-0 text-xs text-gray-400 border-t border-gray-900/60 space-y-2 bg-black/20">
+                            <p class="text-[10px] text-gray-400 pt-2"><strong>Músculos implicados:</strong> <span class="text-white">${ex.m}</span></p>
+                            <p class="text-gray-300 leading-relaxed"><strong>Instrucciones:</strong> ${ex.t}</p>
+                            <div class="p-2.5 bg-amber-500/5 border border-amber-500/10 rounded-lg text-[10px] text-amber-400/90 leading-normal">
+                                <strong><i class="fa-solid fa-circle-exclamation mr-1"></i>Guía Pro:</strong> ${ex.p}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Función ajustada con precisión absoluta para extensiones limpias en .JPG
+        function changeRoutine(type) {
+            const btnA = document.getElementById('btn-routine-A');
+            const btnB = document.getElementById('btn-routine-B');
+            const focusBox = document.getElementById('anatomy-focus-box');
+            const anatTitle = document.getElementById('anatomy-title');
+            const anatIndicators = document.getElementById('anatomy-indicators');
+            const imgEl = document.getElementById('rutina-img');
+
+            if(type === 'A') {
+                btnA.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-white bg-gray-900 border border-gray-800 shadow-sm";
+                btnB.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-gray-500 hover:text-gray-300";
+                focusBox.className = "p-3 rounded-xl bg-gray-950/40 border border-gray-900/60 flex items-center justify-between transition-all duration-300 border-l-2 border-l-[#52d669]";
+                anatTitle.innerText = "Fuerza-Resistencia Corporal Completa";
+                anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">CORE</span><span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">TREN INFERIOR</span>`;
+                
+                // Enfoque exacto asignado: archivo fuerza.JPG sin extensiones duplicadas
+                imgEl.src = "fuerza.JPG";
+            } else {
+                btnB.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-white bg-gray-900 border border-gray-800 shadow-sm";
+                btnA.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-gray-500 hover:text-gray-300";
+                focusBox.className = "p-3 rounded-xl bg-gray-950/40 border border-gray-900/60 flex items-center justify-between transition-all duration-300 border-l-2 border-l-purple-400";
+                anatTitle.innerText = "Protocolo Metabólico Cardio Quema-Grasa";
+                anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">METABÓLICO</span><span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">POTENCIA</span>`;
+                
+                // Enfoque exacto asignado: archivo cardio.JPG sin extensiones duplicadas
+                imgEl.src = "cardio.JPG";
+            }
+            renderWorkout(type);
+        }
+
+        // Temporizador base
+        let timerInterval = null;
+        let totalSeconds = 0;
+        function toggleTimer() {
+            const btn = document.getElementById('btn-timer-play');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                btn.innerHTML = `<i class="fa-solid fa-play"></i>`;
+            } else {
+                timerInterval = setInterval(() => {
+                    totalSeconds++;
+                    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+                    const seconds = String(totalSeconds % 60).padStart(2, '0');
+                    document.getElementById('timer-display').innerText = `${minutes}:${seconds}`;
+                }, 1000);
+                btn.innerHTML = `<i class="fa-solid fa-pause text-[#3897ff]"></i>`;
+            }
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            totalSeconds = 0;
+            document.getElementById('timer-display').innerText = "00:00";
+            document.getElementById('btn-timer-play').innerHTML = `<i class="fa-solid fa-play"></i>`;
+        }
+
+        // --- SISTEMA INTERACTIVO DE TEJIDO DE PARTÍCULAS MOLECULARES ---
         let scene, camera, renderer, particleSystem;
         const particleCount = 180; 
         let positions = new Float32Array(particleCount * 3);
@@ -457,8 +665,6 @@
 
                 calculateTargets();
 
-                let clock = new THREE.Clock();
-
                 function animate() {
                     requestAnimationFrame(animate);
                     
@@ -505,9 +711,32 @@
                     window.addEventListener('resize', resizeCanvas);
                 }
             } catch (e) {
-                console.error("Fallo controlado en el renderizador molecular:", e);
+                console.error("Fallo en el renderizador molecular:", e);
             }
         }
+
+        // --- MANEJADOR DE TRANSICIÓN DE ESTADOS ---
+        const wrapper = document.getElementById('canvas-container');
+        const estados = {
+            1: {
+                title: "Fase 1: Acidosis Crítica", badge: "FASE 1", badgeCls: "bg-[#ff4b4b]/10 text-[#ff4b4b]", txtCls: "text-[#ff4b4b]",
+                ph: "6.85", phSt: "Alerta de Toxicidad e Inflamación", o2: "84%", o2St: "Hipoxia Mitocondrial Crítica",
+                color: 0xff4b4b, radius: 0.6, spread: 0.35, glow: "shadow-glow-acid", border: "border-[#ff4b4b]",
+                definition: "<strong>Definición:</strong> Estado de alta toxicidad intersticial debido a hábitos inflamatorios crónicos.<br><strong>Características:</strong> Las células pierden su carga eléctrica repulsiva, lo que provoca que se <strong>aglutinen, compriman y asfixien mutuamente</strong>. El entorno carece de oxígeno (hipoxia) y el pH cae a rangos ácidos."
+            },
+            2: {
+                title: "Fase 2: Reactivación Activa", badge: "FASE 2", badgeCls: "bg-[#52d669]/10 text-[#52d669]", txtCls: "text-[#52d669]",
+                ph: "7.32", phSt: "Equilibrio Tisular Estándar", o2: "95%", o2St: "Oxigenación en Proceso",
+                color: 0x52d669, radius: 1.1, spread: 0.12, glow: "shadow-glow-alkaline", border: "border-[#52d669]",
+                definition: "<strong>Definición:</strong> Etapa de transición metabólica lograda mediante pautas de limpieza tisular.<br><strong>Características:</strong> Las membranas celulares comienzan a recuperar su potencial eléctrico balanceado. Las micocélulas <strong>empiezan a separarse</strong>, reduciendo la fricción y permitiendo una circulación fluida de nutrientes."
+            },
+            3: {
+                title: "Fase 3: Estado Óptimo LION", badge: "FASE 3", badgeCls: "bg-[#3897ff]/10 text-[#3897ff]", txtCls: "text-[#3897ff]",
+                ph: "7.45", phSt: "Ultra-fluidización Homeostática", o2: "99%", o2St: "Saturación Mitocondrial Máxima",
+                color: 0x3897ff, radius: 1.5, spread: 0.05, glow: "shadow-glow-lion", border: "border-[#3897ff]",
+                definition: "<strong>Definición:</strong> Máxima homeostasis tisular y alcalinidad bio-optimizada bajo el protocolo LION.<br><strong>Características:</strong> Máxima repelencia electromagnética natural. Las células se aprecian <strong>completamente esféricas, saludables, libres y expandidas en ultra-fluidez</strong>."
+            }
+        };
 
         function calculateTargets() {
             if(!particleSystem) return;
@@ -532,29 +761,6 @@
             }
         }
 
-        // --- MANEJADOR DE TRANSICIÓN DE ESTADOS Y DEFINICIONES REQUERIDAS ---
-        const wrapper = document.getElementById('canvas-container');
-        const estados = {
-            1: {
-                title: "Fase 1: Acidosis Crítica", badge: "FASE 1", badgeCls: "bg-[#ff4b4b]/10 text-[#ff4b4b]", txtCls: "text-[#ff4b4b]",
-                ph: "6.85", phSt: "Alerta de Toxicidad e Inflamación", o2: "84%", o2St: "Hipoxia Mitocondrial Crítica",
-                color: 0xff4b4b, radius: 0.6, spread: 0.35, glow: "shadow-glow-acid", border: "border-[#ff4b4b]",
-                definition: "<strong>Definición:</strong> Estado de alta toxicidad intersticial debido a hábitos inflamatorios crónicos.<br><strong>Características:</strong> Las células pierden su carga eléctrica repulsiva, lo que provoca que se <strong>aglutinen, compriman y asfixien mutuamente</strong>. El entorno carece de oxígeno (hipoxia) y el pH cae a rangos ácidos, bloqueando la producción eficiente de energía mitocondrial."
-            },
-            2: {
-                title: "Fase 2: Reactivación Activa", badge: "FASE 2", badgeCls: "bg-[#52d669]/10 text-[#52d669]", txtCls: "text-[#52d669]",
-                ph: "7.32", phSt: "Equilibrio Tisular Estándar", o2: "95%", o2St: "Oxigenación en Proceso",
-                color: 0x52d669, radius: 1.1, spread: 0.12, glow: "shadow-glow-alkaline", border: "border-[#52d669]",
-                definition: "<strong>Definición:</strong> Etapa de transición metabólica lograda mediante pautas de limpieza tisular.<br><strong>Características:</strong> Las membranas celulares comienzan a recuperar su potencial eléctrico balanceado. Las micocélulas <strong>empiezan a separarse</strong>, reduciendo la fricción y permitiendo una circulación fluida de nutrientes y una recaptación saludable de oxígeno en los tejidos."
-            },
-            3: {
-                title: "Fase 3: Estado Óptimo LION", badge: "FASE 3", badgeCls: "bg-[#3897ff]/10 text-[#3897ff]", txtCls: "text-[#3897ff]",
-                ph: "7.45", phSt: "Ultra-fluidización Homeostática", o2: "99%", o2St: "Saturación Mitocondrial Máxima",
-                color: 0x3897ff, radius: 1.5, spread: 0.05, glow: "shadow-glow-lion", border: "border-[#3897ff]",
-                definition: "<strong>Definición:</strong> Máxima homeostasis tisular y alcalinidad bio-optimizada bajo el protocolo LION.<br><strong>Características:</strong> Máxima repelencia electromagnética natural. Las células se aprecian <strong>completamente esféricas, saludables, libres y expandidas en ultra-fluidez</strong>. La saturación de oxígeno roza la perfección (99%) permitiendo una quema energética y regeneración mitocondrial acelerada."
-            }
-        };
-
         function updateState(st) {
             const state = parseInt(st);
             const d = estados[state];
@@ -572,13 +778,11 @@
             document.getElementById('o2-value').className = `text-xl font-bold tracking-tight ${d.txtCls}`;
             document.getElementById('o2-status').innerText = d.o2St;
 
-            // Inyección de texto explicativo solicitado
             document.getElementById('state-definition-text').innerHTML = d.definition;
             document.getElementById('state-definition-container').className = `p-4 rounded-2xl bg-gray-950/60 border transition-all duration-300 ${d.border}`;
 
             wrapper.className = `relative w-full h-80 bg-gradient-to-b from-gray-950 to-black rounded-3xl border transition-all duration-500 ${d.glow} ${d.border}`;
 
-            // Parámetros físicos de la nube de partículas interactiva
             targetColor.setHex(d.color);
             currentTargetRadius = d.radius;
             currentSpread = d.spread;
@@ -591,12 +795,10 @@
             updateState(v);
         }
 
-        // Ejecución Segura
+        // Ejecución Segura en Carga de Documento
         document.addEventListener("DOMContentLoaded", () => {
             setupUI();
             init3DCell();
-            
-            // Forzar renderizado inicial en el Estado Óptimo LION
             setTimeout(() => {
                 updateState(3);
                 resizeCanvas();
