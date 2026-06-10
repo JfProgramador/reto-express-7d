@@ -106,10 +106,20 @@
 
         <section id="despensa" class="tab-content space-y-6">
             <div>
-                <h2 class="text-xl font-bold mb-1">Matriz de Suministros</h2>
-                <p class="text-xs text-gray-500">Mínimo 7 alimentos limpios por categoría y equivalencias terapéuticas.</p>
+                <h2 class="text-xl font-bold mb-1">Checklist Alcagénico</h2>
+                <p class="text-xs text-gray-500">Tu sistema de 5 bloques para la desinflamación y el control metabólico.</p>
             </div>
-            <div class="space-y-4" id="market-groups-container"></div>
+            
+            <div class="space-y-5" id="market-groups-container"></div>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-gray-950 to-black border border-gray-900 shadow-md border-l-4 border-l-amber-500/80 space-y-2">
+                <p class="text-[10px] font-bold tracking-widest text-amber-500 uppercase"><i class="fa-solid fa-star mr-1"></i> Regla de Oro Alcagénica</p>
+                <div class="text-xs text-gray-400 space-y-1.5 font-light leading-relaxed">
+                    <p>🔴 <strong class="text-red-400/90 font-semibold">Zona Roja:</strong> 0% de tolerancia (7 días).</p>
+                    <p>🟡 <strong class="text-amber-400/90 font-semibold">Zona Amarilla:</strong> 1 porción diaria por bloque.</p>
+                    <p>🟢 <strong class="text-emerald-400/90 font-semibold">Zona Verde:</strong> Libre consumo. Si sientes hambre, la solución siempre es una proteína (Bloque 2) acompañada de alcalinizantes (Bloque 1).</p>
+                </div>
+            </div>
         </section>
 
         <section id="recetario" class="tab-content space-y-6">
@@ -118,8 +128,9 @@
                 <p class="text-xs text-gray-500">Secuencia crononutricional obligatoria para la restauración celular.</p>
             </div>
             <div class="space-y-3" id="protocolos-timeline-container"></div>
+            
             <div class="pt-4 border-t border-gray-900">
-                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Soporte Gastronómico Complementario</h3>
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Recetas Fáciles y Rápidas</h3>
                 <div class="space-y-2" id="recipes-container"></div>
             </div>
         </section>
@@ -151,7 +162,7 @@
             </div>
 
             <div class="w-full">
-                <img id="rutina-img" src="fuerza.JPG" class="w-full h-auto rounded-xl border border-gray-800 shadow-md object-contain bg-gray-950" alt="Infografía de Rutina">
+                <img id="rutina-img" src="fuerza.jpg" class="w-full h-auto rounded-xl border border-gray-800 shadow-md object-contain bg-gray-950" alt="Infografía de Rutina">
             </div>
 
             <div class="bg-gradient-to-br from-gray-950 to-black border border-gray-900 p-4 rounded-2xl flex flex-col items-center justify-center relative shadow-lg">
@@ -220,54 +231,103 @@
             { t: "7. Optimización del Descanso y Regeneration", d: "Asegurar entre 7 y 8 horas de sueño de alta calidad nocturna, desconectando pantallas 30 minutos antes de acostarte." }
         ];
 
-        const listaMercado = [
+        const listaMercadoSemaforo = [
             {
-                grupo: "Proteínas Limpias (Mínimo 7)",
-                items: [
-                    { n: "Pollo de pastoreo libre", i: "Pavo orgánico fileteado" },
-                    { n: "Pescado blanco (Calabaza/Mero)", i: "Trucha de río o lubina" },
-                    { n: "Salmón silvestre", i: "Sardinas limpias en agua mineral" },
-                    { n: "Claras de huevo de campo", i: "Huevos enteros de pastoreo" },
-                    { n: "PDM + F1 (Nutrición Celular)", i: "Proteína limpia aislada" },
-                    { n: "Muslos de pollo sin piel", i: "Contramuslos magros" },
-                    { n: "Carne molida sin grasa", i: "Lomo fino de res limpio" }
-                ], color: "text-[#3897ff]"
+                zona: "🔴 ZONA ROJA - ALIMENTOS RESTRINGIDOS",
+                checklistTxt: "Si marcas alguno de estos, estás encendiendo el fuego de la inflamación.",
+                color: "text-red-500",
+                bgColor: "bg-red-500/5",
+                borderColor: "border-red-500/10",
+                accent: "accent-red-500",
+                bloques: [
+                    {
+                        titulo: "BLOQUE 5: Alimentos Restringidos",
+                        items: [
+                            "Azúcar refinada: (Blanca, morena, panela, sirope de agave).",
+                            "Harinas de trigo: (Pan, pastas, galletas, pizzas, empanadas).",
+                            "Lácteos: (Leche, quesos, yogur, crema, mantequilla, helados).",
+                            "Aceites de semillas: (Girasol, soja, maíz, canola, margarina).",
+                            "Embutidos: (Salchichas, jamones, chorizos, mortadela).",
+                            "Bebidas azucaradas: (Refrescos, jugos industriales, aguas con sabor).",
+                            "Edulcorantes químicos: (Sucralosa, aspartamo, acesulfamo K, xilitol).",
+                            "Alcohol: (Vino, cerveza, destilados).",
+                            "Frituras industriales: (Papas de bolsa, snacks procesados).",
+                            "Salsas comerciales: (Ketchup, mayonesa comercial, aderezos listos).",
+                            "Grasas Trans: (Cualquier producto que contenga aceites hidrogenados).",
+                            "Cereales refinados: (Cereales de caja, barras \"fitness\").",
+                            "Proteínas de soja aisladas: (Texturizados, hamburguesas vegetales procesadas).",
+                            "Snacks ultraprocesados: (Barras proteicas con ingredientes impronunciables)."
+                        ]
+                    }
+                ]
             },
             {
-                grupo: "Grasas Energéticas (Mínimo 7)",
-                items: [
-                    { n: "Aguacate Hass maduro", i: "Aceite de aguacate extra virgen" },
-                    { n: "Aceite de coco MCT", i: "Manteca de cacao cruda" },
-                    { n: "Aceite de oliva extra virgen", i: "Aceite de linaza" },
-                    { n: "Aceite de Aguacate", i: "Aceitunas" },
-                    { n: "Nueces de nogal (5 uni)", i: "Almendras crudas fileteadas" },
-                    { n: "Mantequilla de almendras", i: "Mantequilla artesanal" },
-                    { n: "Semillas de chía densas", i: "Semillas de cáñamo" }
-                ], color: "text-[#52d669]"
+                zona: "🟡 ZONA AMARILLA - ENERGÍA CONTROLADA",
+                checklistTxt: "Solo mark 1 (UNA) opción de CADA bloque al día.",
+                color: "text-amber-400",
+                bgColor: "bg-amber-400/5",
+                borderColor: "border-amber-400/10",
+                accent: "accent-amber-500",
+                bloques: [
+                    {
+                        titulo: "BLOQUE 3: Carbohidratos Integrales",
+                        items: [
+                            "Quinua (1/2 taza cocida).",
+                            "Avena en hojuelas (1/2 taza cocida).",
+                            "Camote / Batata (1 pieza pequeña).",
+                            "Yuca (1 porción del tamaño de tu puño).",
+                            "Arroz negro o integral (1/2 taza cocida).",
+                            "Lentejas (1/2 taza cocida).",
+                            "Garbanzos (1/2 taza cocida)."
+                        ]
+                    },
+                    {
+                        titulo: "BLOQUE 4: Grasas Energéticas",
+                        items: [
+                            "Aguacate (1/2 unidad mediana).",
+                            "Aceite de oliva virgen extra (1 cucharada sopera).",
+                            "Nueces de nogal (un puñado pequeño).",
+                            "Semillas de chía (1 cucharada sopera).",
+                            "Semillas de calabaza (1 puñado pequeño).",
+                            "Aceitunas (8-10 unidades).",
+                            "Coco fresco (1 trozo pequeño)."
+                        ]
+                    }
+                ]
             },
             {
-                grupo: "Carbohidratos Integrales (Mínimo 7)",
-                items: [
-                    { n: "Avena integral en hojuelas", i: "Harina de avena entera" },
-                    { n: "Papa sabanera al horno", i: "Papa pastusa al vapor" },
-                    { n: "Arroz Parborizado", i: "Arroz integral largo" },
-                    { n: "Papa Criolla", i: "Yuca cocida sin hilos" },
-                    { n: "Quinoa real lavada", i: "Amaranto orgánico inflado" },
-                    { n: "Plátano verde o maduro", i: "Calabaza o auyama horneada" },
-                    { n: "Tortillas (Maiz)", i: "Patacon / Arepa" }
-                ], color: "text-amber-400"
-            },
-            {
-                grupo: "Alimentos Alcalinizantes",
-                items: [
-                    { n: "Semillas de Linaza", i: "Aporte mucílago y omega" },
-                    { n: "Gelatina sin sabor", i: "Aminoácidos para mucosa" },
-                    { n: "Espinacas frescas", i: "Clorofila y oxigenación" },
-                    { n: "Apio silvestre", i: "Sodio biológico" },
-                    { n: "Té Verde premium", i: "Activación metabólica" },
-                    { n: "Cúrcuma orgánica", i: "Bloqueo inflamatorio" },
-                    { n: "Cacao amargo puro", i: "Magnesio biodisponible" }
-                ], color: "text-purple-400"
+                zona: "🟢 ZONA VERDE - REPARACIÓN TOTAL",
+                checklistTxt: "Prioridad máxima. Cuanto más marques aquí, más rápido te desinflamas.",
+                color: "text-[#52d669]",
+                bgColor: "bg-[#52d669]/5",
+                borderColor: "border-[#52d669]/10",
+                accent: "accent-emerald-500",
+                bloques: [
+                    {
+                        titulo: "BLOQUE 2: Proteínas Limpias",
+                        items: [
+                            "Salmón fresco.",
+                            "Pescado blanco (tilapia, mero, bacalao).",
+                            "Huevos orgánicos (2-3 unidades).",
+                            "Pechuga de pollo (sin piel).",
+                            "Carne magra de pastoreo.",
+                            "Langostinos / Camarones.",
+                            "Atún al natural (en agua, no en aceite vegetal)."
+                        ]
+                    },
+                    {
+                        titulo: "BLOQUE 1: Alimentos Alcalinizantes",
+                        items: [
+                            "Espinaca (fresca o salteada).",
+                            "Kale (col rizada).",
+                            "Brócoli (al vapor).",
+                            "Apio (en jugos o ensaladas).",
+                            "Pepino (en rodajas).",
+                            "Calabacín / Zucchini (cocido).",
+                            "Espárragos (a la plancha)."
+                        ]
+                    }
+                ]
             }
         ];
 
@@ -279,12 +339,18 @@
             { h: "06:30 PM", p: "Cena de Cierre", m: "Proteína magra + Vegetales verdes cocidos al vapor", f: "Reparación celular nocturna sin picos de insulina. Inicio de ventana de ayuno." }
         ];
 
+        // SECCIÓN DE 10 RECETAS INCLUYENDO LAS DE CARNE MOLIDA MAGRA RES/CERDO
         const recetas = [
             { t: "1. Revuelto de Claras con Tomate y Cebolla", m: "Pro: 24g | Gra: 2g | Car: 4g", p: "Cocinar 5 claras con tomate y cebolla en sartén antiadherente con spray mínimo de aceite." },
             { t: "2. Batido Nutricional PDM + F1", m: "Pro: 24g | Gra: 2.5g | Car: 10g", p: "Licuar 2 scoops de F1 y 1 o 2 de PDM en agua helada. Consumir de inmediato." },
             { t: "3. Pescado Blanco al vapor con Calabaza", m: "Pro: 28g | Gra: 3g | Car: 8g", p: "Filete sazonado con sal marina, al vapor sobre rodajas de calabaza tierna." },
             { t: "4. Pollo Mechado en Especias", m: "Pro: 30g | Gra: 4g | Car: 1g", p: "Pechuga desmechada cocinada en su jugo con comino, ajo y cilantro fresco." },
-            { t: "5. Huevos Enteros con Espinaca", m: "Pro: 18g | Gra: 14g | Car: 2g", p: "Sartenear dos huevos enteros con una taza densa de espinaca y sal marina gris." }
+            { t: "5. Huevos Enteros con Especias y Espinaca", m: "Pro: 18g | Gra: 14g | Car: 2g", p: "Sartenear dos huevos enteros con una taza densa de espinaca y sal marina gris." },
+            { t: "6. Salteado Relámpago de Res con Zucchini", m: "Pro: 26g | Gra: 8g | Car: 3g", p: "Dorar carne molida de res magra con ajo en polvo. Añadir zucchini en dados y saltear 5 minutos con sal marina." },
+            { t: "7. Wok de Cerdo Molido con Espárragos", m: "Pro: 25g | Gra: 7g | Car: 4g", p: "Cocinar carne molida magra de cerdo con jengibre rallado. Agregar puntas de espárragos y retirar al estar crujientes." },
+            { t: "8. Mini Hamburguesas de Res al Grill", m: "Pro: 28g | Gra: 9g | Car: 1g", p: "Moldear porciones pequeñas de carne de res molida magra sazonadas con pimienta. Sellar a fuego alto 3 min por lado." },
+            { t: "9. Bowls de Cerdo LION con Apio", m: "Pro: 24g | Gra: 8g | Car: 2g", p: "Sofreír carne de cerdo molida magra con apio picado finamente. Apagar el fuego y añadir hojas de albahaca fresca picada." },
+            { t: "10. Picadillo Mixto de Res y Cerdo", m: "Pro: 27g | Gra: 8g | Car: 2g", p: "Combinar ambas carnes molidas magras en partes iguales. Dorar en sartén caliente con cebolla y terminar con cebollín fresco." }
         ];
 
         const menusGiroExpress = [
@@ -319,7 +385,7 @@
                 obj: "Consolidar equilibrio homeostático e integrar grasas y proteínas magras.",
                 pautas: ["Huevos enteros permitidos.", "Inclusión moderada de carbohidratos complejos al almuerzo."],
                 comidas: [
-                    { n: "Comida 1", d: "Huevos enteros con espinaca y cebolla." },
+                    { n: "Comida 1", d: "Huevos enteros con espinaca and cebolla." },
                     { n: "Comida 2", d: "Nutrición Celular (PDM + F1) + agua." },
                     { n: "Comida 3", d: "Pollo a la plancha con arroz Parborizado y ensalada." },
                     { n: "Comida 4", d: "Claras de huevo o almendras crudas." },
@@ -329,7 +395,6 @@
             }
         ];
 
-        // --- DATA DE RUTINAS ---
         const rutinaA = [
             { n: "1. Bodyweight Squats", s: "2 Series", r: "30-40 Seg ", m: "Cuádriceps, Glúteos", t: "Pies al ancho de hombros. Baja cadera rompiendo el paralelo, pecho erguido.", p: "Evita levantar talones. Descanso 30 seg entre series" },
             { n: "2. Incline Push-Ups", s: "2 Series", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Manos en superficie elevada. Cuerpo en línea recta perfecta, desciende pecho.", p: "No dejes caer la cadera. Descanso 30 seg entre serie" },
@@ -346,14 +411,13 @@
             { n: "1. Burpees", s: "3 Circuitos", r: "30-40 Seg", m: "Potencia, Cardio", t: "Cuclillas, plancha alta, flexión, regresa pies, salto vertical explosivo.", p: "Prioriza fluidez sobre velocidad. Descanso 30 seg entre serie" },
             { n: "2. Shoulder Taps", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Hombros", t: "Plancha alta. Toca hombro opuesto alternadamente.", p: "Evita balancear las caderas. Descanso 30 seg entre serie" },
             { n: "3. Kneeling Pushups", s: "3 Circuitos", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Apoya rodillas. Cadera al frente, desciende pecho controladamente.", p: "Codos en diagonal (45 grados). Descanso 30 seg entre serie" },
-            { n: "4. High Neeks", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio", t: "De pie. Elevo rodillas de manera alterna y continuo.", p: "Abdomen activo y utilizo brazos. Descanso 30 seg entre serie" },
+            { n: "4. High Knees", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio", t: "De pie. Eleva rodillas de manera alterna y continúo.", p: "Abdomen activo y utilizo brazos. Descanso 30 seg entre serie" },
             { n: "5. Jumping Jacks", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio Alta Intensidad", t: "Salto abriendo piernas y llevando manos sobre la cabeza.", p: "Amortigua cayendo sobre puntas. Descanso 30 seg entre serie" },
             { n: "6. Mountain Climbers", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Cardio", t: "Plancha alta. Rodillas al pecho alternadas a alta velocidad.", p: "Cadera baja, no hagas pirámide. Descanso 30 seg entre serie" }
         ];
 
         // --- FUNCIONES UI ENTORNO ---
         function setupUI() {
-            // Checklists
             const chkCont = document.getElementById('checklist-container');
             chkCont.innerHTML = "";
             accionesCriticas.forEach(a => {
@@ -368,25 +432,43 @@
                 `;
             });
 
-            // Suministros
             const mktCont = document.getElementById('market-groups-container');
             mktCont.innerHTML = "";
-            listaMercado.forEach(g => {
-                let itemsHTML = g.items.map(item => `
-                    <div class="border-b border-gray-900/40 py-2 last:border-0 flex justify-between items-center gap-4">
-                        <div class="w-1/2"><p class="text-white font-medium">${item.n}</p></div>
-                        <div class="w-1/2 text-right"><p class="text-gray-500 italic text-[11px]"><i class="fa-solid fa-right-left text-[9px] mr-1 text-gray-700"></i>${item.i}</p></div>
-                    </div>
-                `).join('');
+            listaMercadoSemaforo.forEach(z => {
+                let bloquesHTML = z.bloques.map(b => {
+                    let itemsHTML = b.items.map(item => `
+                        <label class="flex items-start gap-3 py-2 border-b border-gray-900/40 last:border-0 cursor-pointer text-xs group">
+                            <input type="checkbox" class="mt-0.5 w-4 h-4 rounded ${z.accent} bg-gray-900 border-gray-800 shrink-0">
+                            <span class="text-gray-300 font-medium group-hover:text-white transition-colors">${item}</span>
+                        </label>
+                    `).join('');
+                    
+                    return `
+                        <div class="mt-2.5 border border-gray-900/60 rounded-xl bg-black/40 overflow-hidden">
+                            <button class="w-full p-3 text-left flex justify-between items-center font-semibold text-xs text-white" onclick="toggleAccordion(this)">
+                                <span class="flex items-center gap-1.5 uppercase tracking-wider text-[11px] text-gray-300">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-current"></span> ${b.titulo}
+                                </span>
+                                <i class="fa-solid fa-chevron-down text-gray-600 transition-transform text-[10px]"></i>
+                            </button>
+                            <div class="hidden p-3.5 pt-0 border-t border-gray-900/40 bg-black/20 flex flex-col">
+                                ${itemsHTML}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
                 mktCont.innerHTML += `
-                    <div class="p-4 bg-gray-950/60 border border-gray-900 rounded-2xl">
-                        <span class="text-[10px] font-bold bg-gray-900 border border-gray-800 px-2 py-0.5 rounded uppercase ${g.color}">${g.grupo}</span>
-                        <div class="mt-3 divide-y divide-gray-900/50 text-xs">${itemsHTML}</div>
+                    <div class="p-4 ${z.bgColor} border ${z.borderColor} rounded-2xl shadow-sm space-y-1">
+                        <div class="border-b border-gray-900/40 pb-2">
+                            <span class="text-xs font-bold uppercase tracking-wider ${z.color}">${z.zona}</span>
+                            <p class="text-[10px] text-gray-500 mt-0.5 leading-normal font-light">${z.checklistTxt}</p>
+                        </div>
+                        ${bloquesHTML}
                     </div>
                 `;
             });
 
-            // Horarios sugeridos
             const prtCont = document.getElementById('protocolos-timeline-container');
             prtCont.innerHTML = "";
             horariosProtocolos.forEach(p => {
@@ -405,7 +487,6 @@
                 `;
             });
 
-            // Recetas
             const rcpCont = document.getElementById('recipes-container');
             rcpCont.innerHTML = "";
             recetas.forEach(r => {
@@ -423,7 +504,6 @@
                 `;
             });
 
-            // Cronograma 7D
             const daysCont = document.getElementById('days-container');
             daysCont.innerHTML = "";
             const mapping = [0, 0, 0, 1, 1, 2, 2]; 
@@ -535,6 +615,7 @@
             });
         }
 
+        // --- ENLACES DE IMÁGENES CORREGIDOS A MINÚSCULAS ---
         function changeRoutine(type) {
             const btnA = document.getElementById('btn-routine-A');
             const btnB = document.getElementById('btn-routine-B');
@@ -549,14 +630,16 @@
                 focusBox.className = "p-3 rounded-xl bg-gray-950/40 border border-gray-900/60 flex items-center justify-between transition-all duration-300 border-l-2 border-l-[#52d669]";
                 anatTitle.innerText = "Fuerza-Resistencia Corporal Completa";
                 anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">CORE</span><span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">TREN INFERIOR</span>`;
-                imgEl.src = "fuerza.JPG";
+                
+                imgEl.src = "fuerza.jpg"; // Cambiado a minúscula
             } else {
                 btnB.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-white bg-gray-900 border border-gray-800 shadow-sm";
                 btnA.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-gray-500 hover:text-gray-300";
                 focusBox.className = "p-3 rounded-xl bg-gray-950/40 border border-gray-900/60 flex items-center justify-between transition-all duration-300 border-l-2 border-l-purple-400";
                 anatTitle.innerText = "Protocolo Metabólico Cardio Quema-Grasa";
                 anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">METABÓLICO</span><span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">POTENCIA</span>`;
-                imgEl.src = "cardio.JPG";
+                
+                imgEl.src = "cardio.jpg"; // Cambiado a minúscula
             }
             renderWorkout(type);
         }
@@ -587,6 +670,7 @@
             document.getElementById('btn-timer-play').innerHTML = `<i class="fa-solid fa-play"></i>`;
         }
 
+        // --- SISTEMA MOLECULAR THREE.JS ---
         let scene, camera, renderer, particleSystem;
         const particleCount = 180; 
         let positions = new Float32Array(particleCount * 3);
