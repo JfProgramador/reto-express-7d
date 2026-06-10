@@ -117,7 +117,7 @@
                 <div class="text-xs text-gray-400 space-y-1.5 font-light leading-relaxed">
                     <p>🔴 <strong class="text-red-400/90 font-semibold">Zona Roja:</strong> 0% de tolerancia (7 días).</p>
                     <p>🟡 <strong class="text-amber-400/90 font-semibold">Zona Amarilla:</strong> 1 porción diaria por bloque.</p>
-                    <p>🟢 <strong class="text-emerald-400/90 font-semibold">Zona Verde:</strong> Libre consumo. Si sientes hambre, la solución siempre es una proteína (Bloque 2) acompañada de alcalinizantes (Bloque 1).</p>
+                    <p>🟢 <strong class="text-emerald-400/90 font-semibold">Zona Verde:</strong> Libre consumo. Si sientes hambre, la solución siempre es una proteína (Bloque 2) acompañada de alcalinos.</p>
                 </div>
             </div>
         </section>
@@ -162,7 +162,7 @@
             </div>
 
             <div class="w-full">
-                <img id="rutina-img" src="fuerza.jpg" class="w-full h-auto rounded-xl border border-gray-800 shadow-md object-contain bg-gray-950" alt="Infografía de Rutina">
+                <img id="rutina-img" src="https://raw.githubusercontent.com/JfProgramador/reto-express-7d/main/fuerza.JPG" class="w-full h-auto rounded-xl border border-gray-800 shadow-md object-contain bg-gray-950" alt="Infografía de Rutina">
             </div>
 
             <div class="bg-gradient-to-br from-gray-950 to-black border border-gray-900 p-4 rounded-2xl flex flex-col items-center justify-center relative shadow-lg">
@@ -171,7 +171,7 @@
                 </div>
                 <div id="timer-display" class="text-3xl font-bold tracking-widest text-white my-3">00:00</div>
                 <div class="flex gap-4">
-                    <button onclick="toggleTimer()" id="btn-timer-play" class="w-8 h-8 rounded-full bg-gray-900 border border-gray-800 text-xs flex items-center justify-center text-gray-300 hover:text-white transition">
+                    <button onclick="toggleTimer()" id="btn-timer-play" class="w-8 h-8 rounded-full bg-gray-900 border border-gray-800 text-xs flex items-center justify-center text-gray-300 hover:text-gray-100 transition">
                         <i class="fa-solid fa-play"></i>
                     </button>
                     <button onclick="resetTimer()" class="w-8 h-8 rounded-full bg-gray-900 border border-gray-800 text-xs flex items-center justify-center text-gray-500 hover:text-gray-300 transition">
@@ -223,8 +223,8 @@
         // --- DATA CENTRAL DE LA MINI APP ---
         const accionesCriticas = [
             { t: "1. Hidratación Celular ", d: "Consumir un mínimo de 3 litros de agua purificada diariamente de forma obligatoria no de sopeton sino a sorbos periodicos." },
-            { t: "2. Cero Tolerancia a Agresores Inflamatorios", d: "Eliminar por completo harinas refinadas, azúcares procesados, edulcorantes artificiales (incluso los de '0 calorías'), lácteos de todo tipo y aceites vegetales refinados." },
-            { t: "3. Respeto al Orden Crononutricional u Horaios establecidos", d: "Ingerir el Paso 1 al despertar en ayunas, esperar 20 minutos para el Paso 2, y postergar al menos 2 horas los alimentos sólidos del Paso 3." },
+            { t: "2. Cero Tolerancia a Agresores Inflamatorios", d: "Eliminar por completo harinas refinadas, azúcares procesados, edulcorantes artificiales (incluso los de '0 calorías'), lácteos de cualquier índole." },
+            { t: "3. Respeto al Orden Crononutricional u Horaios establecidos", d: "Ingerir el Paso 1 al despertar en ayunas, esperar 20 minutos para el Paso 2, y postergar al menos 2 horas los alimentos sólidos." },
             { t: "4. Inclusion de Fibra", d: "Consumir el gel de semillas (Paso 1) y el jugo verde (Paso 2) sin colar. La textura viscosa y grumos hacen el efecto 'escoba'." },
             { t: "5. Ventana Mínima de Ayuno Fisiológico", d: "Mantener un periodo de ayuno nocturno de al menos 12 horas consecutivas (ej. 6:30 PM a 6:30 AM) para inducir autofagia." },
             { t: "6. Gestión de la Crisis detoxificadora", d: "Comprender los síntomas de desintoxicación. Incrementa el agua y tés herbales, nunca uses analgésicos químicos o azúcares." },
@@ -333,8 +333,8 @@
 
         const horariosProtocolos = [
             { h: "06:00 AM", p: "Paso 1: Limpia y Cicatriza", m: "Gel de Linaza/Chía + Gelatina sin sabor (en ayunas)", f: "Recubrimiento gástrico, modulación del pH y reparación de la mucosa intestinal." },
-            { h: "06:20 AM", p: "Paso 2: Oxigena y Biorregula", m: "Jugo Verde de alta densidad (Espinaca, Apio, Manzana Verde, Limón)", f: "Vasodilatación periférica, neutralización de radicales libres y barrido de colon." },
-            { h: "08:30 AM", p: "Paso 3: Nutre y Regenera", m: "Bowl de Avena, almendras y frutos con Huevos revueltos", f: "Aporte de los 114 nutrientes basales y activación de la síntesis proteica." },
+            { h: "06:20 AM", p: "Paso 2: Oxigena y Biorregula", m: "Jugo Verde de alta densidad (Espinaca, Apio, Manzana Verde, Limón)", f: "Vasodilatación periférica, neutralización de radicales libres y carga micronutrientes." },
+            { h: "08:30 AM", p: "Paso 3: Nutre y Regenera", m: "Bowl de Avena, almendras y frutos con Huevos revueltos", f: "Aporte de los 114 nutrientes basales y activación de la síntesis proteica muscular." },
             { h: "01:30 PM", p: "Almuerzo", m: "Proteína limpia + Ensalada Arcoíris + Grasas", f: "Sostenimiento del balance de nitrógeno y aporte multivitamínico denso." },
             { h: "06:30 PM", p: "Cena de Cierre", m: "Proteína magra + Vegetales verdes cocidos al vapor", f: "Reparación celular nocturna sin picos de insulina. Inicio de ventana de ayuno." }
         ];
@@ -347,10 +347,10 @@
             { t: "4. Pollo Mechado en Especias", m: "Pro: 30g | Gra: 4g | Car: 1g", p: "Pechuga desmechada cocinada en su jugo con comino, ajo y cilantro fresco." },
             { t: "5. Huevos Enteros con Especias y Espinaca", m: "Pro: 18g | Gra: 14g | Car: 2g", p: "Sartenear dos huevos enteros con una taza densa de espinaca y sal marina gris." },
             { t: "6. Salteado Relámpago de Res con Zucchini", m: "Pro: 26g | Gra: 8g | Car: 3g", p: "Dorar carne molida de res magra con ajo en polvo. Añadir zucchini en dados y saltear 5 minutos con sal marina." },
-            { t: "7. Wok de Cerdo Molido con Espárragos", m: "Pro: 25g | Gra: 7g | Car: 4g", p: "Cocinar carne molida magra de cerdo con jengibre rallado. Agregar puntas de espárragos y retirar al estar crujientes." },
+            { t: "7. Wok de Cerdo Molido con Espárragos", m: "Pro: 25g | Gra: 7g | Car: 4g", p: "Cocinar carne molida magra de cerdo con jengibre rallado. Agregar puntas de espárragos y retirar al estar al dente." },
             { t: "8. Mini Hamburguesas de Res al Grill", m: "Pro: 28g | Gra: 9g | Car: 1g", p: "Moldear porciones pequeñas de carne de res molida magra sazonadas con pimienta. Sellar a fuego alto 3 min por lado." },
-            { t: "9. Bowls de Cerdo LION con Apio", m: "Pro: 24g | Gra: 8g | Car: 2g", p: "Sofreír carne de cerdo molida magra con apio picado finamente. Apagar el fuego y añadir hojas de albahaca fresca picada." },
-            { t: "10. Picadillo Mixto de Res y Cerdo", m: "Pro: 27g | Gra: 8g | Car: 2g", p: "Combinar ambas carnes molidas magras en partes iguales. Dorar en sartén caliente con cebolla y terminar con cebollín fresco." }
+            { t: "9. Bowls de Cerdo LION con Apio", m: "Pro: 24g | Gra: 8g | Car: 2g", p: "Sofreír carne de cerdo molida magra con apio picado finamente. Apagar el fuego y añadir hojas de albahaca fresca." },
+            { t: "10. Picadillo Mixto de Res y Cerdo", m: "Pro: 27g | Gra: 8g | Car: 2g", p: "Combinar ambas carnes molidas magras en partes iguales. Dorar en sartén caliente con cebolla y terminar con tomate." }
         ];
 
         const menusGiroExpress = [
@@ -396,24 +396,24 @@
         ];
 
         const rutinaA = [
-            { n: "1. Bodyweight Squats", s: "2 Series", r: "30-40 Seg ", m: "Cuádriceps, Glúteos", t: "Pies al ancho de hombros. Baja cadera rompiendo el paralelo, pecho erguido.", p: "Evita levantar talones. Descanso 30 seg entre series" },
-            { n: "2. Incline Push-Ups", s: "2 Series", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Manos en superficie elevada. Cuerpo en línea recta perfecta, desciende pecho.", p: "No dejes caer la cadera. Descanso 30 seg entre serie" },
-            { n: "3. Plank Jump-Ins", s: "2 Series", r: "30-40 Seg", m: "Core, Estabilizadores", t: "Plancha alta. Salto llevando pies a manos y regresa a plancha.", p: "Amortigua con puntas de pies. Descanso 30 seg entre serie" },
-            { n: "4. Knee Pull-Ins", s: "2 Series", r: "30-40 Seg", m: "Abdomen Inferior", t: "Sentado, inclina torso atrás. Extiende y recoge rodillas al pecho.", p: "Movimiento controlado, sin inercia. Descanso 30 seg entre serie" },
-            { n: "5. Cross Crunches", s: "2 Series", r: "30-40 Seg", m: "Oblicuos", t: "Boca arriba, eleva torso rotando para conectar codo con rodilla opuesta.", p: "La fuerza nace del abdomen, no del cuello. Descanso 30 seg entre serie" },
-            { n: "6. Leg Raises", s: "2 Series", r: "30-40 Seg", m: "Abdomen profundo", t: "Boca arriba. Eleva piernas a 90 grados y desciende sin tocar el suelo.", p: "Manos bajo glúteos para proteger lumbar. Descanso 30 seg entre serie" },
-            { n: "7. Superman Holds", s: "2 Series", r: "30-40 Seg", m: "Erectores, Lumbar", t: "Boca abajo. Eleva pecho y muslos simultáneamente.", p: "Mirada al suelo para proteger cervicales. Descanso 30 seg entre serie" },
-            { n: "8. Wall Sit Hold", s: "2 Series", r: "30-40 Seg", m: "Cuádriceps", t: "Espalda a la pared, baja cadera a 90 grados. Mantén postura.", p: "Talones firmes bajo las rodillas. Descanso 30 seg entre serie" },
-            { n: "9. Calf Raises", s: "2 Series", r: "30-40 Seg", m: "Pantorrillas", t: "Elévate sobre puntas de pies, pausa arriba y desciende.", p: "Rango completo sin rebotar. Descanso 30 seg entre serie" }
+            { n: "1. Bodyweight Squats", s: "2 Series", r: "30-40 Seg ", m: "Cuádriceps, Glúteos", t: "Pies al ancho de hombros. Baja cadera rompiendo el paralelo, pecho erguido.", p: "Evita levantar talones del suelo. Descanso 30 seg entre series." },
+            { n: "2. Incline Push-Ups", s: "2 Series", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Manos en superficie elevada. Cuerpo en línea recta perfecta, desciende pecho.", p: "No dejes caer la espalda. Descanso 30 seg entre series." },
+            { n: "3. Plank Jump-Ins", s: "2 Series", r: "30-40 Seg", m: "Core, Estabilizadores", t: "Plancha alta. Salto llevando pies a manos y regresa a plancha.", p: "Amortigua con puntas de pies. Descanso 30 seg entre series." },
+            { n: "4. Knee Pull-Ins", s: "2 Series", r: "30-40 Seg", m: "Abdomen Inferior", t: "Sentado, inclina torso atrás. Extiende y recoge rodillas al pecho.", p: "Movimiento controlado, sin inercia. Descanso 30 seg entre series." },
+            { n: "5. Cross Crunches", s: "2 Series", r: "30-40 Seg", m: "Oblicuos", t: "Boca arriba, eleva torso rotando para conectar codo con rodilla opuesta.", p: "La fuerza nace del abdomen, no del cuello. Descanso 30 seg entre series." },
+            { n: "6. Leg Raises", s: "2 Series", r: "30-40 Seg", m: "Abdomen profundo", t: "Boca arriba. Eleva piernas a 90 grados y desciende sin tocar el suelo.", p: "Manos bajo glúteos para proteger lumbar. Descanso 30 seg entre series." },
+            { n: "7. Superman Holds", s: "2 Series", r: "30-40 Seg", m: "Erectores, Lumbar", t: "Boca abajo. Eleva pecho y muslos simultáneamente.", p: "Mirada al suelo para proteger cervicales. Descanso 30 seg entre series." },
+            { n: "8. Wall Sit Hold", s: "2 Series", r: "30-40 Seg", m: "Cuádriceps", t: "Espalda a la pared, baja cadera a 90 grados. Mantén postura.", p: "Talones firmes bajo las rodillas. Descanso 30 seg entre series." },
+            { n: "9. Calf Raises", s: "2 Series", r: "30-40 Seg", m: "Pantorrillas", t: "Elévate sobre puntas de pies, pausa arriba y desciende.", p: "Rango completo sin rebotar. Descanso 30 seg entre series." }
         ];
 
         const rutinaB = [
-            { n: "1. Burpees", s: "3 Circuitos", r: "30-40 Seg", m: "Potencia, Cardio", t: "Cuclillas, plancha alta, flexión, regresa pies, salto vertical explosivo.", p: "Prioriza fluidez sobre velocidad. Descanso 30 seg entre serie" },
-            { n: "2. Shoulder Taps", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Hombros", t: "Plancha alta. Toca hombro opuesto alternadamente.", p: "Evita balancear las caderas. Descanso 30 seg entre serie" },
-            { n: "3. Kneeling Pushups", s: "3 Circuitos", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Apoya rodillas. Cadera al frente, desciende pecho controladamente.", p: "Codos en diagonal (45 grados). Descanso 30 seg entre serie" },
-            { n: "4. High Knees", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio", t: "De pie. Eleva rodillas de manera alterna y continúo.", p: "Abdomen activo y utilizo brazos. Descanso 30 seg entre serie" },
-            { n: "5. Jumping Jacks", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio Alta Intensidad", t: "Salto abriendo piernas y llevando manos sobre la cabeza.", p: "Amortigua cayendo sobre puntas. Descanso 30 seg entre serie" },
-            { n: "6. Mountain Climbers", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Cardio", t: "Plancha alta. Rodillas al pecho alternadas a alta velocidad.", p: "Cadera baja, no hagas pirámide. Descanso 30 seg entre serie" }
+            { n: "1. Burpees", s: "3 Circuitos", r: "30-40 Seg", m: "Potencia, Cardio", t: "Cuclillas, plancha alta, flexión, regresa pies, salto vertical explosivo.", p: "Prioriza fluidez sobre velocidad. Descanso 30 seg entre circuitos." },
+            { n: "2. Shoulder Taps", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Hombros", t: "Plancha alta. Toca hombro opuesto alternadamente.", p: "Evita balancear las caderas. Descanso 30 seg entre circuitos." },
+            { n: "3. Kneeling Pushups", s: "3 Circuitos", r: "30-40 Seg", m: "Pectoral, Tríceps", t: "Apoya rodillas. Cadera al frente, desciende pecho controladamente.", p: "Codos en diagonal (45 grados). Descanso 30 seg entre circuitos." },
+            { n: "4. High Knees", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio", t: "De pie. Eleva rodillas de manera alterna y continúo.", p: "Abdomen activo y utilizo brazos. Descanso 30 seg entre circuitos." },
+            { n: "5. Jumping Jacks", s: "3 Circuitos", r: "30-40 Seg", m: "Cardio Alta Intensidad", t: "Salto abriendo piernas y llevando manos sobre la cabeza.", p: "Amortigua cayendo sobre puntas. Descanso 30 seg entre circuitos." },
+            { n: "6. Mountain Climbers", s: "3 Circuitos", r: "30-40 Seg", m: "Core, Cardio", t: "Plancha alta. Rodillas al pecho alternadas a alta velocidad.", p: "Cadera baja, no hagas pirámide. Descanso 30 seg entre circuitos." }
         ];
 
         // --- FUNCIONES UI ENTORNO ---
@@ -615,7 +615,7 @@
             });
         }
 
-        // --- ENLACES DE IMÁGENES CORREGIDOS A MINÚSCULAS ---
+        // --- ENLACES DE IMÁGENES CORREGIDOS CON URLs COMPLETAS DE GITHUB ---
         function changeRoutine(type) {
             const btnA = document.getElementById('btn-routine-A');
             const btnB = document.getElementById('btn-routine-B');
@@ -631,7 +631,7 @@
                 anatTitle.innerText = "Fuerza-Resistencia Corporal Completa";
                 anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">CORE</span><span class="px-2 py-0.5 rounded bg-[#52d669]/10 text-[#52d669]">TREN INFERIOR</span>`;
                 
-                imgEl.src = "fuerza.JPG"; // Cambiado a minúscula
+                imgEl.src = "https://raw.githubusercontent.com/JfProgramador/reto-express-7d/main/fuerza.JPG";
             } else {
                 btnB.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-white bg-gray-900 border border-gray-800 shadow-sm";
                 btnA.className = "py-2.5 rounded-lg text-xs font-bold transition-all text-gray-500 hover:text-gray-300";
@@ -639,7 +639,7 @@
                 anatTitle.innerText = "Protocolo Metabólico Cardio Quema-Grasa";
                 anatIndicators.innerHTML = `<span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">METABÓLICO</span><span class="px-2 py-0.5 rounded bg-purple-400/10 text-purple-400">POTENCIA</span>`;
                 
-                imgEl.src = "cardio.JPG"; // Cambiado a minúscula
+                imgEl.src = "https://raw.githubusercontent.com/JfProgramador/reto-express-7d/main/cardio.JPG";
             }
             renderWorkout(type);
         }
@@ -746,19 +746,19 @@
                 title: "Fase 1: Acidosis Crítica", badge: "FASE 1", badgeCls: "bg-[#ff4b4b]/10 text-[#ff4b4b]", txtCls: "text-[#ff4b4b]",
                 ph: "6.85", phSt: "Alerta de Toxicidad e Inflamación", o2: "84%", o2St: "Hipoxia Mitocondrial Crítica",
                 color: 0xff4b4b, radius: 0.6, spread: 0.35, glow: "shadow-glow-acid", border: "border-[#ff4b4b]",
-                definition: `<h3 class="text-red-500 font-bold mb-2">🔴 ACIDOSIS CRÍTICA</h3><p class="font-bold text-white mb-1">El punto de estancamiento.</p><p>Tu sistema metabólico se encuentra saturado y bloqueado. Debido a la inflamación celular, el exceso de azúcares y la retención de toxinas, tu cuerpo está programado actualmente para almacenar grasa en lugar de quemarla. En este estado es normal experimentar fatiga constante, pesadez, niebla mental y ansiedad por la comida. Es una señal de alerta y el punto de quiebre donde inicia tu transformación.</p>`
+                definition: `<h3 class="text-red-500 font-bold mb-2">🔴 ACIDOSIS CRÍTICA</h3><p class="font-bold text-white mb-1">El punto de estancamiento.</p><p>Tu sistema metabólico se encuentra en un estado de inflamación máxima. Cada célula grita pidiendo auxilio, ahogada en toxicidad. Es hora de actuar.</p>`
             },
             2: {
                 title: "Fase 2: Reactivación Activa", badge: "FASE 2", badgeCls: "bg-[#52d669]/10 text-[#52d669]", txtCls: "text-[#52d669]",
                 ph: "7.32", phSt: "Equilibrio Tisular Estándar", o2: "95%", o2St: "Oxigenación en Proceso",
                 color: 0x52d669, radius: 1.1, spread: 0.12, glow: "shadow-glow-alkaline", border: "border-[#52d669]",
-                definition: `<h3 class="text-yellow-500 font-bold mb-2">🟡 REACTIVACIÓN</h3><p class="font-bold text-white mb-1">El despertar metabólico.</p><p>Tu cuerpo entra en una fase de limpieza y adaptación profunda. Al reducir la carga tóxica, los niveles de insulina se estabilizan y tu organismo se ve obligado a cambiar de combustible: deja de depender del azúcar y comienza a oxidar la grasa acumulada para generar energía. Durante esta transición, la inflamación se desploma, tu digestión se optimiza y empiezas a sentir un aumento progresivo y sostenido en tu vitalidad física.</p>`
+                definition: `<h3 class="text-yellow-500 font-bold mb-2">🟡 REACTIVACIÓN</h3><p class="font-bold text-white mb-1">El despertar metabólico.</p><p>Tu cuerpo entra en una fase de limpieza. Los biomarcadores mejoran. Sigues el protocolo y los cambios son visibles. Mantén la disciplina.</p>`
             },
             3: {
                 title: "Fase 3: Estado Óptimo LION", badge: "FASE 3", badgeCls: "bg-[#3897ff]/10 text-[#3897ff]", txtCls: "text-[#3897ff]",
                 ph: "7.45", phSt: "Ultra-fluidización Homeostática", o2: "99%", o2St: "Saturación Mitocondrial Máxima",
                 color: 0x3897ff, radius: 1.5, spread: 0.05, glow: "shadow-glow-lion", border: "border-[#3897ff]",
-                definition: `<h3 class="text-blue-500 font-bold mb-2">🔵 ESTADO LION</h3><p class="font-bold text-white mb-1">Optimización absoluta.</p><p>El nivel máximo de rendimiento de tu biología. Tu maquinaria celular ha sido reprogramada; ahora tu metabolismo es acelerado, eficiente y capaz de oxidar grasa incluso en estado de reposo. Disfrutas de energía inagotable, claridad mental impecable y una respuesta muscular superior ante el estímulo del entrenamiento. Has construido un entorno interno blindado, diseñado para la fuerza, la resistencia y el control total de tu cuerpo.</p>`
+                definition: `<h3 class="text-blue-500 font-bold mb-2">🔵 ESTADO LION</h3><p class="font-bold text-white mb-1">Optimización absoluta.</p><p>El nivel máximo de rendimiento de tu biología. Cada célula funciona al 100%. Este es el estado LION: energía infinita, claridad mental total, cuerpo restaurado.</p>`
             }
         };
 
